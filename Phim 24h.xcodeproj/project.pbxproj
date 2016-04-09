@@ -45,9 +45,9 @@
 		46F08FC11CB96CAF001BF92F /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 46F08FA41CB96CAF001BF92F /* logo.png */; };
 		46F08FC21CB96CAF001BF92F /* menu_back_copy.png in Resources */ = {isa = PBXBuildFile; fileRef = 46F08FA51CB96CAF001BF92F /* menu_back_copy.png */; };
 		46F08FC31CB96CAF001BF92F /* poster.png in Resources */ = {isa = PBXBuildFile; fileRef = 46F08FA81CB96CAF001BF92F /* poster.png */; };
-		46F08FC91CB96D38001BF92F /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46F08FC71CB96D38001BF92F /* FBSDKCoreKit.framework */; };
-		46F08FCA1CB96D38001BF92F /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46F08FC81CB96D38001BF92F /* FBSDKLoginKit.framework */; };
 		46F08FCC1CB96D83001BF92F /* videosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46F08FCB1CB96D83001BF92F /* videosViewController.swift */; };
+		46FDA67B1CB970CC00A68BB4 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46FDA6791CB970CC00A68BB4 /* FBSDKCoreKit.framework */; };
+		46FDA67C1CB970CC00A68BB4 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46FDA67A1CB970CC00A68BB4 /* FBSDKLoginKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -115,9 +115,9 @@
 		46F08FA71CB96CAF001BF92F /* module.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = "<group>"; };
 		46F08FA81CB96CAF001BF92F /* poster.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = poster.png; sourceTree = "<group>"; };
 		46F08FC41CB96CDC001BF92F /* Phim 24h-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Phim 24h-Bridging-Header.h"; sourceTree = "<group>"; };
-		46F08FC71CB96D38001BF92F /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
-		46F08FC81CB96D38001BF92F /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		46F08FCB1CB96D83001BF92F /* videosViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = videosViewController.swift; sourceTree = "<group>"; };
+		46FDA6791CB970CC00A68BB4 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
+		46FDA67A1CB970CC00A68BB4 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,8 +125,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				46F08FCA1CB96D38001BF92F /* FBSDKLoginKit.framework in Frameworks */,
-				46F08FC91CB96D38001BF92F /* FBSDKCoreKit.framework in Frameworks */,
+				46FDA67C1CB970CC00A68BB4 /* FBSDKLoginKit.framework in Frameworks */,
+				46FDA67B1CB970CC00A68BB4 /* FBSDKCoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -170,7 +170,7 @@
 		4622D4E41CB96AEB0017096F /* Phim 24h */ = {
 			isa = PBXGroup;
 			children = (
-				46F08F8A1CB96CAF001BF92F /* framework */,
+				46FDA6781CB970CC00A68BB4 /* framework */,
 				46F08F8D1CB96CAF001BF92F /* image */,
 				46F08F7B1CB96C8B001BF92F /* source */,
 				4622D4E91CB96AEB0017096F /* Main.storyboard */,
@@ -216,15 +216,6 @@
 			path = source;
 			sourceTree = "<group>";
 		};
-		46F08F8A1CB96CAF001BF92F /* framework */ = {
-			isa = PBXGroup;
-			children = (
-				46F08FC71CB96D38001BF92F /* FBSDKCoreKit.framework */,
-				46F08FC81CB96D38001BF92F /* FBSDKLoginKit.framework */,
-			);
-			path = framework;
-			sourceTree = "<group>";
-		};
 		46F08F8D1CB96CAF001BF92F /* image */ = {
 			isa = PBXGroup;
 			children = (
@@ -257,6 +248,15 @@
 				46F08FA81CB96CAF001BF92F /* poster.png */,
 			);
 			path = image;
+			sourceTree = "<group>";
+		};
+		46FDA6781CB970CC00A68BB4 /* framework */ = {
+			isa = PBXGroup;
+			children = (
+				46FDA6791CB970CC00A68BB4 /* FBSDKCoreKit.framework */,
+				46FDA67A1CB970CC00A68BB4 /* FBSDKLoginKit.framework */,
+			);
+			path = framework;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -573,6 +573,8 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Phim",
 					24h/framework,
+					"$(PROJECT_DIR)/Phim",
+					24h/framework,
 				);
 				INFOPLIST_FILE = "Phim 24h/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -590,6 +592,8 @@
 				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
+					"$(PROJECT_DIR)/Phim",
+					24h/framework,
 					"$(PROJECT_DIR)/Phim",
 					24h/framework,
 				);
