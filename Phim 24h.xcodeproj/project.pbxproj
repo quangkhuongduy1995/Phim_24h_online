@@ -1,0 +1,525 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		4622D4E61CB96AEB0017096F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4622D4E51CB96AEB0017096F /* AppDelegate.swift */; };
+		4622D4E81CB96AEB0017096F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4622D4E71CB96AEB0017096F /* ViewController.swift */; };
+		4622D4EB1CB96AEB0017096F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4622D4E91CB96AEB0017096F /* Main.storyboard */; };
+		4622D4EE1CB96AEB0017096F /* Phim_24h.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4622D4EC1CB96AEB0017096F /* Phim_24h.xcdatamodeld */; };
+		4622D4F01CB96AEB0017096F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4622D4EF1CB96AEB0017096F /* Assets.xcassets */; };
+		4622D4F31CB96AEB0017096F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4622D4F11CB96AEB0017096F /* LaunchScreen.storyboard */; };
+		4622D4FE1CB96AEB0017096F /* Phim_24hTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4622D4FD1CB96AEB0017096F /* Phim_24hTests.swift */; };
+		4622D5091CB96AEB0017096F /* Phim_24hUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4622D5081CB96AEB0017096F /* Phim_24hUITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		4622D4FA1CB96AEB0017096F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4622D4DA1CB96AEB0017096F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4622D4E11CB96AEB0017096F;
+			remoteInfo = "Phim 24h";
+		};
+		4622D5051CB96AEB0017096F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4622D4DA1CB96AEB0017096F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4622D4E11CB96AEB0017096F;
+			remoteInfo = "Phim 24h";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		4622D4E21CB96AEB0017096F /* Phim 24h.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Phim 24h.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4622D4E51CB96AEB0017096F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		4622D4E71CB96AEB0017096F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		4622D4EA1CB96AEB0017096F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		4622D4ED1CB96AEB0017096F /* Phim_24h.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Phim_24h.xcdatamodel; sourceTree = "<group>"; };
+		4622D4EF1CB96AEB0017096F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		4622D4F21CB96AEB0017096F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		4622D4F41CB96AEB0017096F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4622D4F91CB96AEB0017096F /* Phim 24hTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Phim 24hTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4622D4FD1CB96AEB0017096F /* Phim_24hTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phim_24hTests.swift; sourceTree = "<group>"; };
+		4622D4FF1CB96AEB0017096F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4622D5041CB96AEB0017096F /* Phim 24hUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Phim 24hUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4622D5081CB96AEB0017096F /* Phim_24hUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phim_24hUITests.swift; sourceTree = "<group>"; };
+		4622D50A1CB96AEB0017096F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		4622D4DF1CB96AEB0017096F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4622D4F61CB96AEB0017096F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4622D5011CB96AEB0017096F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		4622D4D91CB96AEB0017096F = {
+			isa = PBXGroup;
+			children = (
+				4622D4E41CB96AEB0017096F /* Phim 24h */,
+				4622D4FC1CB96AEB0017096F /* Phim 24hTests */,
+				4622D5071CB96AEB0017096F /* Phim 24hUITests */,
+				4622D4E31CB96AEB0017096F /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		4622D4E31CB96AEB0017096F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4622D4E21CB96AEB0017096F /* Phim 24h.app */,
+				4622D4F91CB96AEB0017096F /* Phim 24hTests.xctest */,
+				4622D5041CB96AEB0017096F /* Phim 24hUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		4622D4E41CB96AEB0017096F /* Phim 24h */ = {
+			isa = PBXGroup;
+			children = (
+				4622D4E51CB96AEB0017096F /* AppDelegate.swift */,
+				4622D4E71CB96AEB0017096F /* ViewController.swift */,
+				4622D4E91CB96AEB0017096F /* Main.storyboard */,
+				4622D4EF1CB96AEB0017096F /* Assets.xcassets */,
+				4622D4F11CB96AEB0017096F /* LaunchScreen.storyboard */,
+				4622D4F41CB96AEB0017096F /* Info.plist */,
+				4622D4EC1CB96AEB0017096F /* Phim_24h.xcdatamodeld */,
+			);
+			path = "Phim 24h";
+			sourceTree = "<group>";
+		};
+		4622D4FC1CB96AEB0017096F /* Phim 24hTests */ = {
+			isa = PBXGroup;
+			children = (
+				4622D4FD1CB96AEB0017096F /* Phim_24hTests.swift */,
+				4622D4FF1CB96AEB0017096F /* Info.plist */,
+			);
+			path = "Phim 24hTests";
+			sourceTree = "<group>";
+		};
+		4622D5071CB96AEB0017096F /* Phim 24hUITests */ = {
+			isa = PBXGroup;
+			children = (
+				4622D5081CB96AEB0017096F /* Phim_24hUITests.swift */,
+				4622D50A1CB96AEB0017096F /* Info.plist */,
+			);
+			path = "Phim 24hUITests";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		4622D4E11CB96AEB0017096F /* Phim 24h */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4622D50D1CB96AEB0017096F /* Build configuration list for PBXNativeTarget "Phim 24h" */;
+			buildPhases = (
+				4622D4DE1CB96AEB0017096F /* Sources */,
+				4622D4DF1CB96AEB0017096F /* Frameworks */,
+				4622D4E01CB96AEB0017096F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Phim 24h";
+			productName = "Phim 24h";
+			productReference = 4622D4E21CB96AEB0017096F /* Phim 24h.app */;
+			productType = "com.apple.product-type.application";
+		};
+		4622D4F81CB96AEB0017096F /* Phim 24hTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4622D5101CB96AEB0017096F /* Build configuration list for PBXNativeTarget "Phim 24hTests" */;
+			buildPhases = (
+				4622D4F51CB96AEB0017096F /* Sources */,
+				4622D4F61CB96AEB0017096F /* Frameworks */,
+				4622D4F71CB96AEB0017096F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4622D4FB1CB96AEB0017096F /* PBXTargetDependency */,
+			);
+			name = "Phim 24hTests";
+			productName = "Phim 24hTests";
+			productReference = 4622D4F91CB96AEB0017096F /* Phim 24hTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		4622D5031CB96AEB0017096F /* Phim 24hUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4622D5131CB96AEB0017096F /* Build configuration list for PBXNativeTarget "Phim 24hUITests" */;
+			buildPhases = (
+				4622D5001CB96AEB0017096F /* Sources */,
+				4622D5011CB96AEB0017096F /* Frameworks */,
+				4622D5021CB96AEB0017096F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4622D5061CB96AEB0017096F /* PBXTargetDependency */,
+			);
+			name = "Phim 24hUITests";
+			productName = "Phim 24hUITests";
+			productReference = 4622D5041CB96AEB0017096F /* Phim 24hUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		4622D4DA1CB96AEB0017096F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0730;
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = Com.QuangKhuongDuy.Phim24h;
+				TargetAttributes = {
+					4622D4E11CB96AEB0017096F = {
+						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = KPXN694N6Z;
+					};
+					4622D4F81CB96AEB0017096F = {
+						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = KPXN694N6Z;
+						TestTargetID = 4622D4E11CB96AEB0017096F;
+					};
+					4622D5031CB96AEB0017096F = {
+						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = KPXN694N6Z;
+						TestTargetID = 4622D4E11CB96AEB0017096F;
+					};
+				};
+			};
+			buildConfigurationList = 4622D4DD1CB96AEB0017096F /* Build configuration list for PBXProject "Phim 24h" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 4622D4D91CB96AEB0017096F;
+			productRefGroup = 4622D4E31CB96AEB0017096F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				4622D4E11CB96AEB0017096F /* Phim 24h */,
+				4622D4F81CB96AEB0017096F /* Phim 24hTests */,
+				4622D5031CB96AEB0017096F /* Phim 24hUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		4622D4E01CB96AEB0017096F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4622D4F31CB96AEB0017096F /* LaunchScreen.storyboard in Resources */,
+				4622D4F01CB96AEB0017096F /* Assets.xcassets in Resources */,
+				4622D4EB1CB96AEB0017096F /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4622D4F71CB96AEB0017096F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4622D5021CB96AEB0017096F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		4622D4DE1CB96AEB0017096F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4622D4E81CB96AEB0017096F /* ViewController.swift in Sources */,
+				4622D4E61CB96AEB0017096F /* AppDelegate.swift in Sources */,
+				4622D4EE1CB96AEB0017096F /* Phim_24h.xcdatamodeld in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4622D4F51CB96AEB0017096F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4622D4FE1CB96AEB0017096F /* Phim_24hTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4622D5001CB96AEB0017096F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4622D5091CB96AEB0017096F /* Phim_24hUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		4622D4FB1CB96AEB0017096F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4622D4E11CB96AEB0017096F /* Phim 24h */;
+			targetProxy = 4622D4FA1CB96AEB0017096F /* PBXContainerItemProxy */;
+		};
+		4622D5061CB96AEB0017096F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4622D4E11CB96AEB0017096F /* Phim 24h */;
+			targetProxy = 4622D5051CB96AEB0017096F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		4622D4E91CB96AEB0017096F /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4622D4EA1CB96AEB0017096F /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		4622D4F11CB96AEB0017096F /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4622D4F21CB96AEB0017096F /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		4622D50B1CB96AEB0017096F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		4622D50C1CB96AEB0017096F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		4622D50E1CB96AEB0017096F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = "Phim 24h/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "Com.QuangKhuongDuy.Phim24h.Phim-24h";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		4622D50F1CB96AEB0017096F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = "Phim 24h/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "Com.QuangKhuongDuy.Phim24h.Phim-24h";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		4622D5111CB96AEB0017096F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = "Phim 24hTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "Com.QuangKhuongDuy.Phim24h.Phim-24hTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Phim 24h.app/Phim 24h";
+			};
+			name = Debug;
+		};
+		4622D5121CB96AEB0017096F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = "Phim 24hTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "Com.QuangKhuongDuy.Phim24h.Phim-24hTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Phim 24h.app/Phim 24h";
+			};
+			name = Release;
+		};
+		4622D5141CB96AEB0017096F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = "Phim 24hUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "Com.QuangKhuongDuy.Phim24h.Phim-24hUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = "Phim 24h";
+			};
+			name = Debug;
+		};
+		4622D5151CB96AEB0017096F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = "Phim 24hUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "Com.QuangKhuongDuy.Phim24h.Phim-24hUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = "Phim 24h";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4622D4DD1CB96AEB0017096F /* Build configuration list for PBXProject "Phim 24h" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4622D50B1CB96AEB0017096F /* Debug */,
+				4622D50C1CB96AEB0017096F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4622D50D1CB96AEB0017096F /* Build configuration list for PBXNativeTarget "Phim 24h" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4622D50E1CB96AEB0017096F /* Debug */,
+				4622D50F1CB96AEB0017096F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		4622D5101CB96AEB0017096F /* Build configuration list for PBXNativeTarget "Phim 24hTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4622D5111CB96AEB0017096F /* Debug */,
+				4622D5121CB96AEB0017096F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		4622D5131CB96AEB0017096F /* Build configuration list for PBXNativeTarget "Phim 24hUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4622D5141CB96AEB0017096F /* Debug */,
+				4622D5151CB96AEB0017096F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		4622D4EC1CB96AEB0017096F /* Phim_24h.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				4622D4ED1CB96AEB0017096F /* Phim_24h.xcdatamodel */,
+			);
+			currentVersion = 4622D4ED1CB96AEB0017096F /* Phim_24h.xcdatamodel */;
+			path = Phim_24h.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 4622D4DA1CB96AEB0017096F /* Project object */;
+}
