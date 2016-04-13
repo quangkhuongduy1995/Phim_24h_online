@@ -31,6 +31,7 @@ class json {
     }
     func getRequest(params:String, comple:(results:AnyObject)->Void){
         let url = NSURL(string: "\(httpServer)api/?\(params)")
+        print(url)
         let request = NSMutableURLRequest(URL: url!)
         request.HTTPMethod = "GET"
         let task = NSURLSession.sharedSession().dataTaskWithRequest(request) { (data, response, err) -> Void in
@@ -69,6 +70,18 @@ class json {
         }
         
         complet(rs: parse)
+    }
+    
+    //them du lieu
+    
+    func themdulieu(params:String) {
+        
+        let url = NSURL(string: "\(common.host)api/?\(params)")
+        let request = NSMutableURLRequest(URL: url!)
+        request.HTTPMethod = "GET"
+        print(url)
+        NSURLSession.sharedSession().dataTaskWithRequest(request) { (data, response, err) -> Void in
+        }.resume()
     }
 }
 

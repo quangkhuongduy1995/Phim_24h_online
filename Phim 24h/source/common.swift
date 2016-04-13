@@ -11,5 +11,4 @@ import UIKit
 class common {
     static var loading:Bool = true
     static let host:String = "http://192.168.1.105/"
-    
 }

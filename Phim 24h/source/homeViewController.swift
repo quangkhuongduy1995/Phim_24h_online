@@ -496,7 +496,8 @@ class homeViewController: masterViewController, UICollectionViewDataSource, UICo
         lblName.text = "Đăng nhập"
     }
     func loadDataFacebook(){
-        let parameter = ["fields":"id, name, email, last_name, picture.type(large)"]
+        let parameter = ["fields":"id, name, link, email, last_name, picture.type(large)"]
+        var parameterToAPI = "id=adduser"
         FBSDKGraphRequest(graphPath: "me", parameters: parameter).startWithCompletionHandler { (connection, rs, error) in
             if error != nil{
                 print(error)
@@ -505,11 +506,17 @@ class homeViewController: masterViewController, UICollectionViewDataSource, UICo
             if let name = rs["name"] as? String{
                 print(name)
                 self.lblName.text = name
+                let ten = name.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!
+                parameterToAPI += "&tenfacebook=\(ten)"
             }
             if let id = rs["id"] as? String{
                 print(id)
+                parameterToAPI += "&idfacebook=\(id)"
             }
-            
+            if let link = rs["link"] as? String{
+                print(link)
+                parameterToAPI += "&linkfacebook=\(link)"
+            }
             print(rs["picture"]!!["data"]!!["url"]!!)
             if let url = NSURL(string: rs["picture"]!!["data"]!!["url"]!! as! String){
                 NSURLSession.sharedSession().dataTaskWithURL(url, completionHandler: { (data, response, error) in
@@ -520,6 +527,7 @@ class homeViewController: masterViewController, UICollectionViewDataSource, UICo
                     }
                 }).resume()
             }
+            self.js.themdulieu(parameterToAPI)
         }
     }
     
