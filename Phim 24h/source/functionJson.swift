@@ -31,7 +31,7 @@ class json {
     }
     func getRequest(params:String, comple:(results:AnyObject)->Void){
         let url = NSURL(string: "\(httpServer)api/?\(params)")
-        print(url)
+        print(url!)
         let request = NSMutableURLRequest(URL: url!)
         request.HTTPMethod = "GET"
         let task = NSURLSession.sharedSession().dataTaskWithRequest(request) { (data, response, err) -> Void in

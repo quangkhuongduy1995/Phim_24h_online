@@ -20,13 +20,15 @@ class videosViewController: masterViewController,AVPlayerItemOutputPushDelegate 
     var binhLuan:String = ""
     var strURL:String = ""
     var host = ""
+    var currentSeconds = 0
     
     var checkPlay = true
     var checkLike = false
     
     var player:AVPlayer!
     var playerItem:AVPlayerItem!
-    let playerController = AVPlayerViewController()
+    var playerController = AVPlayerViewController()
+    var timer = NSTimer()
     
     var imgLike = UIImageView()
     var imgConment = UIImageView()
@@ -53,7 +55,7 @@ class videosViewController: masterViewController,AVPlayerItemOutputPushDelegate 
         host = common.host
         let phimid = chuyenThamSo.objectForKey("phimID")! as! String
         loadData("id=getvideos&phimid=\(phimid)")
-//        khoiTaoDoiTuong()
+        khoiTaoDoiTuong()
 //        khoiTaoViTri()
         
     }
@@ -71,7 +73,7 @@ class videosViewController: masterViewController,AVPlayerItemOutputPushDelegate 
         self.title = "Xem phim"
         let btnBack = UIButton(type: .Custom)
         btnBack.setImage(UIImage(named: "button_back.png"), forState: .Normal)
-        btnBack.addTarget(self, action: "backClick", forControlEvents: UIControlEvents.TouchUpInside)
+        btnBack.addTarget(self, action: #selector(videosViewController.backClick), forControlEvents: UIControlEvents.TouchUpInside)
         btnBack.frame = CGRectMake(0, 0, 18, 18)
         let barBack = UIBarButtonItem(customView: btnBack)
         self.navigationItem.leftBarButtonItem = barBack
@@ -79,14 +81,14 @@ class videosViewController: masterViewController,AVPlayerItemOutputPushDelegate 
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         
-        
-        let url=NSURL(string: strURL)
-        player = AVPlayer(URL: url!)
-        playerController.player = player
+//        
+//        let url=NSURL(string: strURL)
+//        player = AVPlayer(URL: url!)
+//        playerController.player = player
         //        player.play()
         self.addChildViewController(playerController)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "endVideos", name: AVPlayerItemDidPlayToEndTimeNotification, object: player.currentItem)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "eventPlayOrPause", name: AVPlayerItemTimeJumpedNotification, object: player.currentItem)
+//        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(videosViewController.endVideos), name: AVPlayerItemDidPlayToEndTimeNotification, object: player.currentItem)
+//        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(videosViewController.eventPlayOrPause), name: AVPlayerItemTimeJumpedNotification, object: player.currentItem)
         self.view.addSubview(playerController.view)
         
         viewConmentLikeView = UIView(frame: CGRectZero)
@@ -99,7 +101,7 @@ class videosViewController: masterViewController,AVPlayerItemOutputPushDelegate 
         self.viewConmentLikeView.addSubview(imgView)
         
         lblSoLuongView = UILabel(frame: CGRectZero)
-        lblSoLuongView.text = luocXem
+        lblSoLuongView.text = "0"
         lblSoLuongView.textColor = UIColor.whiteColor()
         lblSoLuongView.backgroundColor = UIColor.clearColor()
         lblSoLuongView.textAlignment = .Left
@@ -113,7 +115,7 @@ class videosViewController: masterViewController,AVPlayerItemOutputPushDelegate 
         self.viewConmentLikeView.addSubview(imgLike)
         
         lblSoLuongLike = UILabel(frame: CGRectZero)
-        lblSoLuongLike.text = luocThich
+        lblSoLuongLike.text = "0"
         lblSoLuongLike.textColor = UIColor.whiteColor()
         lblSoLuongLike.backgroundColor = UIColor.clearColor()
         lblSoLuongLike.textAlignment = .Left
@@ -127,7 +129,7 @@ class videosViewController: masterViewController,AVPlayerItemOutputPushDelegate 
         self.viewConmentLikeView.addSubview(imgConment)
         
         lblSoLuongConment = UILabel(frame: CGRectZero)
-        lblSoLuongConment.text = binhLuan
+        lblSoLuongConment.text = "0"
         lblSoLuongConment.textColor = UIColor.whiteColor()
         lblSoLuongConment.backgroundColor = UIColor.clearColor()
         lblSoLuongConment.textAlignment = .Left
@@ -149,7 +151,7 @@ class videosViewController: masterViewController,AVPlayerItemOutputPushDelegate 
         btnLike.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         btnLike.setTitleColor(UIColor.purpleColor(), forState: .Highlighted)
         btnLike.titleEdgeInsets = UIEdgeInsetsMake(0, -20, 0, 0)
-        btnLike.addTarget(self, action: "btnLikeClick:", forControlEvents: .TouchUpInside)
+        btnLike.addTarget(self, action: #selector(videosViewController.btnLikeClick(_:)), forControlEvents: .TouchUpInside)
         self.menuConmentLikeGoiY.addSubview(btnLike)
         
         imgLikeBtn = UIImageView(frame: CGRectZero)
@@ -164,7 +166,7 @@ class videosViewController: masterViewController,AVPlayerItemOutputPushDelegate 
         btnConment.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         btnConment.setTitleColor(UIColor.purpleColor(), forState: .Highlighted)
         btnConment.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0)
-        btnConment.addTarget(self, action: "btnConmentClick:", forControlEvents: .TouchUpInside)
+        btnConment.addTarget(self, action: #selector(videosViewController.btnConmentClick(_:)), forControlEvents: .TouchUpInside)
         self.menuConmentLikeGoiY.addSubview(btnConment)
         
         imgConmentBtn = UIImageView(frame: CGRectZero)
@@ -178,7 +180,7 @@ class videosViewController: masterViewController,AVPlayerItemOutputPushDelegate 
         btnGoiY.backgroundColor = UIColor.clearColor()
         btnGoiY.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         btnGoiY.setTitleColor(UIColor.purpleColor(), forState: .Highlighted)
-        btnGoiY.addTarget(self, action: "btnGoiYClick:", forControlEvents: .TouchUpInside)
+        btnGoiY.addTarget(self, action: #selector(videosViewController.btnGoiYClick(_:)), forControlEvents: .TouchUpInside)
         self.menuConmentLikeGoiY.addSubview(btnGoiY)
         
         imgGoiYbtn = UIImageView(frame: CGRectZero)
@@ -296,15 +298,30 @@ class videosViewController: masterViewController,AVPlayerItemOutputPushDelegate 
         if checkPlay {
             print("play")
             checkPlay = false
+            timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(videosViewController.ktCoXemHayKhong), userInfo: nil, repeats: true)
+            
         }else{
             print("pause")
-            checkPlay = true
+//            checkPlay = true
         }
     }
     
 //MARK: -init
+    func ktCoXemHayKhong(){
+        let t1 = Int(self.player.currentTime().value)
+        let t2 = Int(self.player.currentTime().timescale)
+        let newCurrentSeconds = t1 / t2
+        if newCurrentSeconds != currentSeconds{
+            currentSeconds = newCurrentSeconds
+            print("Dang views")
+        }else{
+            print("Khong views")
+        }
+        print(currentSeconds)
+    }
     func backClick(){
         player.pause()
+        timer.invalidate()
         self.navigationController?.popViewControllerAnimated(true)
     }
     func btnLikeClick(sender:UIButton){
@@ -361,12 +378,20 @@ class videosViewController: masterViewController,AVPlayerItemOutputPushDelegate 
     override func loadData(params: String) {
         js.getRequest(params) { (results) -> Void in
             self.js.pareJson(results, getdata: ["linkphim","likes","views","binhluan"], complet: { (rs) -> Void in
-                self.strURL = "\(self.host)content/mv/\(rs["linkphim"]![0])"
+//                self.strURL = "\(self.host)content/mv/\(rs["linkphim"]![0])"
                 self.luocThich = rs["likes"]![0]
                 self.luocXem = rs["views"]![0]
                 self.binhLuan = rs["binhluan"]![0]
+                self.lblSoLuongLike.text = rs["likes"]![0]
+                self.lblSoLuongView.text = rs["views"]![0]
+                self.lblSoLuongConment.text = rs["binhluan"]![0]
                 dispatch_async(dispatch_get_main_queue(), {
-                    self.khoiTaoDoiTuong()
+//                    self.khoiTaoDoiTuong()
+                    let url=NSURL(string: "\(self.host)content/mv/\(rs["linkphim"]![0])")
+                    self.player = AVPlayer(URL: url!)
+                    self.playerController.player = self.player
+                    NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(videosViewController.endVideos), name: AVPlayerItemDidPlayToEndTimeNotification, object: self.player.currentItem)
+                    NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(videosViewController.eventPlayOrPause), name: AVPlayerItemTimeJumpedNotification, object: self.player.currentItem)
                     self.loading.hidden = true
                 })
             })

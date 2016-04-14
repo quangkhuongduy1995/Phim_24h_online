@@ -64,6 +64,10 @@ class contentViewController: masterViewController {
         }
     }
     
+    func ini(){
+        lblListDaoDien.removeFromSuperview()
+    }
+    
     func test(){
         print("ok được rồi")
         let parameter = ["fields":"id, name, email, last_name, picture.type(large)"]
@@ -85,7 +89,7 @@ class contentViewController: masterViewController {
     }
     
     override func khoiTaoDoiTuong() {
-        
+//        super.khoiTaoDoiTuong()
         self.title = "Thông tin phim"
         
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(named: "bg_nav.png"), forBarMetrics: .Default)
@@ -325,6 +329,13 @@ class contentViewController: masterViewController {
 
 //MARK: -init
     func btnViewPhimClick(sender:UIButton){
+        js.getRequest("id=getvideos&phimid=\(phimid)") { (results) -> Void in
+            self.js.pareJson(results, getdata: ["linkphim","likes","views","binhluan"], complet: { (rs) -> Void in
+                dispatch_async(dispatch_get_main_queue(), {
+                    
+                })
+            })
+        }
         self.performSegueWithIdentifier("nextViewVideos", sender: self)
     }
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -335,7 +346,7 @@ class contentViewController: masterViewController {
         js.getRequest(params) { (results) -> Void in
             self.js.pareJson(results, getdata: ["phimid", "hinh", "tenphim", "daodien", "dienvien", "status", "namphathanh", "noidungphim"], complet: { (rs) -> Void in
                 dispatch_async(dispatch_get_main_queue(), {
-                    
+                    self.lblTenPhim.text = rs["tenphim"]![0]
                     self.lblListDaoDien.text = rs["daodien"]![0]
                     self.lblListDienVien.text = rs["dienvien"]![0]
                     self.lblKieuStatus.text = rs["status"]![0]
@@ -344,7 +355,7 @@ class contentViewController: masterViewController {
                     self.lblNoidung.sizeToFit()
                     self.scrollView.contentSize = CGSize(width: self.view.frame.size.width, height: self.lblNoidung.frame.size.height + self.lblNoidung.frame.origin.y)
                     self.khoiTaoViTri()
-                    self.loading.hidden = true
+                    self.loading.hidden = false
                 })
             })
             

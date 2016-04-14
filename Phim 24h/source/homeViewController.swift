@@ -510,7 +510,7 @@ class homeViewController: masterViewController, UICollectionViewDataSource, UICo
                 parameterToAPI += "&tenfacebook=\(ten)"
             }
             if let id = rs["id"] as? String{
-                print(id)
+                print("idfracebook: \(id)")
                 parameterToAPI += "&idfacebook=\(id)"
             }
             if let link = rs["link"] as? String{
