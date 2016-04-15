@@ -13,8 +13,9 @@
 		4622D4F31CB96AEB0017096F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4622D4F11CB96AEB0017096F /* LaunchScreen.storyboard */; };
 		4622D4FE1CB96AEB0017096F /* Phim_24hTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4622D4FD1CB96AEB0017096F /* Phim_24hTests.swift */; };
 		4622D5091CB96AEB0017096F /* Phim_24hUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4622D5081CB96AEB0017096F /* Phim_24hUITests.swift */; };
-		46D8F3FB1CBE46EB00CB9E5F /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46D8F3F91CBE46EB00CB9E5F /* FBSDKCoreKit.framework */; };
-		46D8F3FC1CBE46EB00CB9E5F /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46D8F3FA1CBE46EB00CB9E5F /* FBSDKLoginKit.framework */; };
+		46C2FDB71CBFD0D800493A79 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46C2FDB51CBFD0D800493A79 /* FBSDKCoreKit.framework */; };
+		46C2FDB81CBFD0D800493A79 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46C2FDB61CBFD0D800493A79 /* FBSDKLoginKit.framework */; };
+		46C2FDBA1CBFE06D00493A79 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 46C2FDB91CBFE06D00493A79 /* Images.xcassets */; };
 		46F08F831CB96C8B001BF92F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46F08F7C1CB96C8B001BF92F /* AppDelegate.swift */; };
 		46F08F841CB96C8B001BF92F /* common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46F08F7D1CB96C8B001BF92F /* common.swift */; };
 		46F08F851CB96C8B001BF92F /* contentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46F08F7E1CB96C8B001BF92F /* contentViewController.swift */; };
@@ -80,8 +81,9 @@
 		4622D5041CB96AEB0017096F /* Phim 24hUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Phim 24hUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4622D5081CB96AEB0017096F /* Phim_24hUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phim_24hUITests.swift; sourceTree = "<group>"; };
 		4622D50A1CB96AEB0017096F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		46D8F3F91CBE46EB00CB9E5F /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
-		46D8F3FA1CBE46EB00CB9E5F /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
+		46C2FDB51CBFD0D800493A79 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
+		46C2FDB61CBFD0D800493A79 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
+		46C2FDB91CBFE06D00493A79 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		46F08F7C1CB96C8B001BF92F /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		46F08F7D1CB96C8B001BF92F /* common.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = common.swift; sourceTree = "<group>"; };
 		46F08F7E1CB96C8B001BF92F /* contentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = contentViewController.swift; sourceTree = "<group>"; };
@@ -125,8 +127,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				46D8F3FC1CBE46EB00CB9E5F /* FBSDKLoginKit.framework in Frameworks */,
-				46D8F3FB1CBE46EB00CB9E5F /* FBSDKCoreKit.framework in Frameworks */,
+				46C2FDB81CBFD0D800493A79 /* FBSDKLoginKit.framework in Frameworks */,
+				46C2FDB71CBFD0D800493A79 /* FBSDKCoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -179,6 +181,7 @@
 				4622D4F41CB96AEB0017096F /* Info.plist */,
 				4622D4EC1CB96AEB0017096F /* Phim_24h.xcdatamodeld */,
 				46F08FC41CB96CDC001BF92F /* Phim 24h-Bridging-Header.h */,
+				46C2FDB91CBFE06D00493A79 /* Images.xcassets */,
 			);
 			path = "Phim 24h";
 			sourceTree = "<group>";
@@ -253,8 +256,8 @@
 		46FDA6781CB970CC00A68BB4 /* framework */ = {
 			isa = PBXGroup;
 			children = (
-				46D8F3F91CBE46EB00CB9E5F /* FBSDKCoreKit.framework */,
-				46D8F3FA1CBE46EB00CB9E5F /* FBSDKLoginKit.framework */,
+				46C2FDB51CBFD0D800493A79 /* FBSDKCoreKit.framework */,
+				46C2FDB61CBFD0D800493A79 /* FBSDKLoginKit.framework */,
 			);
 			path = framework;
 			sourceTree = "<group>";
@@ -392,6 +395,7 @@
 				46F08FB41CB96CAF001BF92F /* button_sidebar.png in Resources */,
 				46F08FB21CB96CAF001BF92F /* button_search.png in Resources */,
 				46F08FC01CB96CAF001BF92F /* lines.png in Resources */,
+				46C2FDBA1CBFE06D00493A79 /* Images.xcassets in Resources */,
 				4622D4EB1CB96AEB0017096F /* Main.storyboard in Resources */,
 				46F08FBC1CB96CAF001BF92F /* icon_play.png in Resources */,
 			);
@@ -567,10 +571,15 @@
 		4622D50E1CB96AEB0017096F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
+					"$(PROJECT_DIR)/Phim",
+					24h/framework,
+					"$(PROJECT_DIR)/Phim",
+					24h/framework,
 					"$(PROJECT_DIR)/Phim",
 					24h/framework,
 					"$(PROJECT_DIR)/Phim",
@@ -596,10 +605,15 @@
 		4622D50F1CB96AEB0017096F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
+					"$(PROJECT_DIR)/Phim",
+					24h/framework,
+					"$(PROJECT_DIR)/Phim",
+					24h/framework,
 					"$(PROJECT_DIR)/Phim",
 					24h/framework,
 					"$(PROJECT_DIR)/Phim",

@@ -20,6 +20,8 @@ class videosViewController: masterViewController,AVPlayerItemOutputPushDelegate 
     var binhLuan:String = ""
     var strURL:String = ""
     var host = ""
+    var videosid = ""
+    var demThoiGianCapNhatLuotXem = 0
     var currentSeconds = 0
     
     var checkPlay = true
@@ -57,6 +59,10 @@ class videosViewController: masterViewController,AVPlayerItemOutputPushDelegate 
         loadData("id=getvideos&phimid=\(phimid)")
         khoiTaoDoiTuong()
 //        khoiTaoViTri()
+        if let token = FBSDKAccessToken.currentAccessToken() {
+            print(token)
+            loadDataUser()
+        }
         
     }
 
@@ -307,6 +313,33 @@ class videosViewController: masterViewController,AVPlayerItemOutputPushDelegate 
     }
     
 //MARK: -init
+    
+    
+    func loadDataUser(){
+        let parameter = ["fields":"id, name, link, email, last_name, picture.type(large)"]
+        FBSDKGraphRequest(graphPath: "me", parameters: parameter).startWithCompletionHandler { (connection, rs, error) in
+            if let id = rs["id"] as? String{
+                self.js.getRequest("id=thich_khongthich&videosid=\(self.videosid)&idfacebook=\(id)&like=getlike", comple: { (results) in
+//                    print(results.count)
+                    self.js.pareJson(results, getdata: ["likeid"], complet: { (rs) in
+                        dispatch_async(dispatch_get_main_queue(), {
+                            
+                            print("co like: \(rs["likeid"]?.count)")
+                            if rs["likeid"]?.count > 0{
+                                print("co like roi")
+                                self.like()
+                                
+                            }else{
+                                self.unlike()
+                                print("chua like")
+                            }
+                        })
+                    })
+                })
+            }
+        }
+    }
+    
     func ktCoXemHayKhong(){
         let t1 = Int(self.player.currentTime().value)
         let t2 = Int(self.player.currentTime().timescale)
@@ -314,48 +347,120 @@ class videosViewController: masterViewController,AVPlayerItemOutputPushDelegate 
         if newCurrentSeconds != currentSeconds{
             currentSeconds = newCurrentSeconds
             print("Dang views")
+            demThoiGianCapNhatLuotXem += 1
         }else{
             print("Khong views")
         }
+        if demThoiGianCapNhatLuotXem == 5{
+            print("Cap nhat")
+            print("videosid: \(videosid)")
+            timer.invalidate()
+//            js.themdulieu("id=themluotxem&")
+            var params = "id=themluotxem&videosid=\(videosid)"
+            if let token = FBSDKAccessToken.currentAccessToken(){
+                print(token)
+                let parameter = ["fields":"id, name, link, email, last_name, picture.type(large)"]
+                FBSDKGraphRequest(graphPath: "me", parameters: parameter).startWithCompletionHandler { (connection, rs, error) in
+                    if let id = rs["id"] as? String{
+                        params = "\(params)&idfacebook=\(id)"
+                    }
+                    self.js.themdulieu(params)
+                }
+            }else{
+                self.js.themdulieu(params)
+            }
+            
+        }
         print(currentSeconds)
+        
     }
     func backClick(){
         player.pause()
         timer.invalidate()
+        ini()
         self.navigationController?.popViewControllerAnimated(true)
     }
-    func btnLikeClick(sender:UIButton){
-        if !checkLike{
-            
-            UIView.animateWithDuration(0.5, animations: { () -> Void in
-                self.imgLikeBtn.frame = CGRect(x: 5, y: 0, width: 20, height: 20)
-                
-                }) { (finish:Bool) -> Void in
-                    self.imgLikeBtn.frame = CGRect(x: 2, y: 7, width: 15, height: 15)
-                    self.imgLikeBtn.image = UIImage(named: "like_click.png")
-                    self.btnLike.setTitle("Không thích", forState: .Normal)
-                    self.btnLike.titleEdgeInsets = UIEdgeInsetsMake(0,10, 0, 0)
-            }
-            checkLike = true
-            
-        }else{
-            
-            UIView.animateWithDuration(0.5, animations: { () -> Void in
-                self.imgLikeBtn.frame = CGRect(x: 14, y: 11, width: 0, height: 0)
-                
-                }) { (finish:Bool) -> Void in
-                    self.imgLikeBtn.frame = CGRect(x: 2, y: 7, width: 15, height: 15)
-                    self.imgLikeBtn.image = UIImage(named: "like_ntClick.png")
-                    self.btnLike.setTitle("Thích", forState: .Normal)
-                    self.btnLike.titleEdgeInsets = UIEdgeInsetsMake(0, -20, 0, 0)
-            }
-            checkLike = false
-        }
+    
+    func ini(){
         
+        luocThich.removeAll()
+        luocXem.removeAll()
+        binhLuan.removeAll()
+        strURL.removeAll()
+        host.removeAll()
+        videosid.removeAll()
+        playerController.removeFromParentViewController()
+        player = AVPlayer.init()
+        timer = NSTimer.init()
+        imgLike = UIImageView.init()
+        imgConment = UIImageView.init()
+        imgView = UIImageView.init()
+        imgLikeBtn = UIImageView.init()
+        imgGoiYbtn = UIImageView.init()
+        viewConmentLikeView = UIView.init()
+        menuConmentLikeGoiY = UIView.init()
+        btnGoiY = UIButton.init()
+        btnConment = UIButton.init()
+        btnLike = UIButton.init()
+        lblLike = UILabel.init()
+        lblSoLuongLike = UILabel.init()
+        lblSoLuongView = UILabel.init()
+        lblSoLuongConment = UILabel.init()
+        
+        
+    }
+    
+    func like(){
+        UIView.animateWithDuration(0.5, animations: { () -> Void in
+            self.imgLikeBtn.frame = CGRect(x: 5, y: 4, width: 20, height: 20)
+            
+        }) { (finish:Bool) -> Void in
+            self.imgLikeBtn.frame = CGRect(x: 2, y: 7, width: 15, height: 15)
+            self.imgLikeBtn.image = UIImage(named: "like_click.png")
+            self.btnLike.setTitle("Không thích", forState: .Normal)
+            self.btnLike.titleEdgeInsets = UIEdgeInsetsMake(0,10, 0, 0)
+        }
+        checkLike = true
+    }
+    func unlike(){
+        UIView.animateWithDuration(0.5, animations: { () -> Void in
+            self.imgLikeBtn.frame = CGRect(x: 14, y: 11, width: 0, height: 0)
+            
+        }) { (finish:Bool) -> Void in
+            self.imgLikeBtn.frame = CGRect(x: 2, y: 7, width: 15, height: 15)
+            self.imgLikeBtn.image = UIImage(named: "like_ntClick.png")
+            self.btnLike.setTitle("Thích", forState: .Normal)
+            self.btnLike.titleEdgeInsets = UIEdgeInsetsMake(0, -20, 0, 0)
+        }
+        checkLike = false
+    }
+    
+    func btnLikeClick(sender:UIButton){
+        var paramsLike = "id=thich_khongthich&videosid=\(videosid)"
+        if !checkLike{
+            like()
+            paramsLike = "\(paramsLike)&like=like"
+        }else{
+            unlike()
+            paramsLike = "\(paramsLike)&like=unlike"
+        }
+        if let token = FBSDKAccessToken.currentAccessToken(){
+            print(token)
+            let parameter = ["fields":"id, name, link, email, last_name, picture.type(large)"]
+            FBSDKGraphRequest(graphPath: "me", parameters: parameter).startWithCompletionHandler { (connection, rs, error) in
+                if let id = rs["id"] as? String{
+                    paramsLike = "\(paramsLike)&idfacebook=\(id)"
+                    self.js.themdulieu(paramsLike)
+                }
+            }
+        }
     }
     
     func btnConmentClick(sender:UIButton){
         print("conment")
+        let url=NSURL(string: "\(self.host)content/mv/56f2889f5a3b95.53799315.mp4")
+        self.player = AVPlayer(URL: url!)
+        self.playerController.player = self.player
     }
     func btnGoiYClick(sender: UIButton){
         print("Goi y")
@@ -377,16 +482,24 @@ class videosViewController: masterViewController,AVPlayerItemOutputPushDelegate 
     
     override func loadData(params: String) {
         js.getRequest(params) { (results) -> Void in
-            self.js.pareJson(results, getdata: ["linkphim","likes","views","binhluan"], complet: { (rs) -> Void in
+            self.js.pareJson(results, getdata: ["linkphim","likes","views","binhluan","videosid"], complet: { (rs) -> Void in
 //                self.strURL = "\(self.host)content/mv/\(rs["linkphim"]![0])"
-                self.luocThich = rs["likes"]![0]
-                self.luocXem = rs["views"]![0]
-                self.binhLuan = rs["binhluan"]![0]
-                self.lblSoLuongLike.text = rs["likes"]![0]
-                self.lblSoLuongView.text = rs["views"]![0]
-                self.lblSoLuongConment.text = rs["binhluan"]![0]
+//                self.videosid = rs["videosid"]![0]
+//                self.luocThich = rs["likes"]![0]
+//                self.luocXem = rs["views"]![0]
+//                self.binhLuan = rs["binhluan"]![0]
+//                self.lblSoLuongLike.text = rs["likes"]![0]
+//                self.lblSoLuongView.text = rs["views"]![0]
+//                self.lblSoLuongConment.text = rs["binhluan"]![0]
                 dispatch_async(dispatch_get_main_queue(), {
 //                    self.khoiTaoDoiTuong()
+                    self.videosid = rs["videosid"]![0]
+                    self.luocThich = rs["likes"]![0]
+                    self.luocXem = rs["views"]![0]
+                    self.binhLuan = rs["binhluan"]![0]
+                    self.lblSoLuongLike.text = rs["likes"]![0]
+                    self.lblSoLuongView.text = rs["views"]![0]
+                    self.lblSoLuongConment.text = rs["binhluan"]![0]
                     let url=NSURL(string: "\(self.host)content/mv/\(rs["linkphim"]![0])")
                     self.player = AVPlayer(URL: url!)
                     self.playerController.player = self.player
