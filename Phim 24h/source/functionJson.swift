@@ -37,9 +37,10 @@ class json {
         let task = NSURLSession.sharedSession().dataTaskWithRequest(request) { (data, response, err) -> Void in
             
             do{
-                let json:Dictionary<String, AnyObject> = try NSJSONSerialization.JSONObjectWithData(data!, options: []) as! [String:AnyObject]
-                print(json)
+                    let json:Dictionary<String, AnyObject> = try NSJSONSerialization.JSONObjectWithData(data!, options: []) as! [String:AnyObject]
+                    print(json)
                     comple(results: json)
+//                
             }catch{
                 print("loi")
             }

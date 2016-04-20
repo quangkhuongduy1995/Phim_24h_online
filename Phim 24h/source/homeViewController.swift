@@ -14,7 +14,7 @@ class homeViewController: masterViewController, UICollectionViewDataSource, UICo
 //    MARK: -Khai Báo biến
     let js = json()
     let vContent = contentViewController()
-    var chuyenThamSo = NSUserDefaults!()
+    var chuyenThamSo = NSUserDefaults()
     
     var host = ""
     var dataHinh:NSData = NSData()
@@ -380,11 +380,12 @@ class homeViewController: masterViewController, UICollectionViewDataSource, UICo
                 if let imagesData = UIImage(data: data!){
                     print("Image!!!!!!")
                     dispatch_async(dispatch_get_main_queue(), {
-                        print(data!)
+                        
                         self.dataHinh = data!
                         print(self.arrHinh[indexPath.row])
                         self.performSegueWithIdentifier("nextViewContent", sender: self)
                     })
+                    print(data!)
                 }
             })
             dataTask.resume()
@@ -647,8 +648,9 @@ class homeViewController: masterViewController, UICollectionViewDataSource, UICo
 //MARK: -init
     override func loadData(params:String){
         js.getRequest(params) { (results) -> Void in
+            
             self.js.pareJson(results, getdata: ["tenphim", "hinh", "phimid"], complet: { (rs) -> Void in
-                if let loi = rs["loi"]{
+                if rs["loi"] != nil{
                     self.loading.hidden = true
                 }else{
                     self.arrTenPhim = rs["tenphim"]!

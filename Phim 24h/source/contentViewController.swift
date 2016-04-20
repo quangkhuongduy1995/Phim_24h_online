@@ -10,7 +10,7 @@ import UIKit
 
 class contentViewController: masterViewController {
 
-    var chuyenThamSo = NSUserDefaults!()
+    var chuyenThamSo = NSUserDefaults()
     let js = json()
     var host = ""
     var Hinh:NSData = NSData()
@@ -340,6 +340,8 @@ class contentViewController: masterViewController {
     }
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         chuyenThamSo.setValue(phimid, forKeyPath: "phimID")
+        chuyenThamSo.setValue(Hinh, forKey: "datahinh")
+        chuyenThamSo.setValue(lblTenPhim.text, forKey: "tenphim")
     }
     
     override func loadData(params:String){

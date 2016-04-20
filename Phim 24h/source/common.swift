@@ -10,5 +10,11 @@ import Foundation
 import UIKit
 class common {
     static var loading:Bool = true
-    static let host:String = "http://192.168.1.103/"
+    static let host:String = "http://localhost/"
+//    static let thongbao : UIAlertController = {
+//        let thongbao = UIAlertController()
+//        thongbao.title = "Thông báo"
+//        thongbao.message = "Test"
+//        return thongbao
+//    }()
 }

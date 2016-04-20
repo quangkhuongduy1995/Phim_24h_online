@@ -11,7 +11,7 @@ import MediaPlayer
 import AVFoundation
 import AVKit
 
-class videosViewController: masterViewController,AVPlayerItemOutputPushDelegate {
+class videosViewController: masterViewController,AVPlayerItemOutputPushDelegate, UITableViewDelegate, UITableViewDataSource {
 
     var chuyenThamSo = NSUserDefaults()
     let js = json()
@@ -21,11 +21,17 @@ class videosViewController: masterViewController,AVPlayerItemOutputPushDelegate 
     var strURL:String = ""
     var host = ""
     var videosid = ""
+    var tenPhim = ""
+    var dataPoster = NSData()
+    var arrTap:[String] = []
+    var arrVideosID:[String] = []
+    var arrVideos:[String] = []
     var demThoiGianCapNhatLuotXem = 0
     var currentSeconds = 0
     
     var checkPlay = true
     var checkLike = false
+    var ktDangNhapFb = false
     
     var player:AVPlayer!
     var playerItem:AVPlayerItem!
@@ -38,6 +44,7 @@ class videosViewController: masterViewController,AVPlayerItemOutputPushDelegate 
     var imgLikeBtn = UIImageView()
     var imgConmentBtn = UIImageView()
     var imgGoiYbtn = UIImageView()
+    var tableGoiY_Tap = UITableView()
     
     var viewConmentLikeView = UIView()
     var menuConmentLikeGoiY = UIView()
@@ -55,12 +62,15 @@ class videosViewController: masterViewController,AVPlayerItemOutputPushDelegate 
         super.viewDidLoad()
         chuyenThamSo = NSUserDefaults()
         host = common.host
+        dataPoster = chuyenThamSo.objectForKey("datahinh") as! NSData
         let phimid = chuyenThamSo.objectForKey("phimID")! as! String
+        tenPhim = chuyenThamSo.objectForKey("tenphim")! as! String
         loadData("id=getvideos&phimid=\(phimid)")
         khoiTaoDoiTuong()
 //        khoiTaoViTri()
         if let token = FBSDKAccessToken.currentAccessToken() {
-            print(token)
+            print("token: ---------\(token)")
+            ktDangNhapFb = true
             loadDataUser()
         }
         
@@ -194,6 +204,15 @@ class videosViewController: masterViewController,AVPlayerItemOutputPushDelegate 
         imgGoiYbtn.contentMode = .ScaleToFill
         self.btnGoiY.addSubview(imgGoiYbtn)
         
+        tableGoiY_Tap = UITableView(frame: CGRectZero, style: .Plain)
+        tableGoiY_Tap.backgroundColor = UIColor.clearColor()
+        tableGoiY_Tap.separatorColor = UIColor.clearColor()
+        tableGoiY_Tap.separatorStyle = .None
+        tableGoiY_Tap.delegate = self
+        tableGoiY_Tap.dataSource = self
+        self.view.addSubview(tableGoiY_Tap)
+        
+        
         khoiTaoViTri()
     }
     
@@ -293,6 +312,99 @@ class videosViewController: masterViewController,AVPlayerItemOutputPushDelegate 
         w = 15
         h = 15
         imgGoiYbtn.frame = CGRect(x: x, y: y, width: w, height: h)
+        
+        x = 0
+        y = self.menuConmentLikeGoiY.frame.origin.y + self.menuConmentLikeGoiY.frame.size.height
+        w = self.view.frame.size.width
+        h = self.view.frame.size.height - y
+        tableGoiY_Tap.frame = CGRectMake(x, y, w, h)
+        
+    }
+//MARK: -init tableview
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1
+    }
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if arrTap.count > 0{
+            if arrTap[0] != "-1"{
+                return arrTap.count
+            }
+        }
+        return arrVideos.count
+    }
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        var cell = UITableViewCell(frame: CGRectZero)
+        if let c = tableGoiY_Tap.dequeueReusableCellWithIdentifier("C"){
+            cell = c
+        }else{
+            cell = UITableViewCell(style: .Value1, reuseIdentifier: "C")
+            cell.backgroundColor = UIColor.clearColor()
+            
+            let imgPoster = UIImageView(frame: CGRectZero)
+            imgPoster.contentMode = .ScaleToFill
+            imgPoster.tag = 1
+            cell.contentView.addSubview(imgPoster)
+            
+            let lblTenPhim = UILabel(frame: CGRectZero)
+            lblTenPhim.textColor = UIColor.whiteColor()
+            lblTenPhim.tag = 2
+            cell.contentView.addSubview(lblTenPhim)
+            
+            let lblTap = UILabel(frame: CGRectZero)
+            lblTap.textColor = UIColor.blackColor()
+            lblTap.tag = 3
+            cell.contentView.addSubview(lblTap)
+            
+        }
+        
+        let imgPoster = cell.contentView.viewWithTag(1) as! UIImageView
+        imgPoster.image = UIImage(data: dataPoster)
+        imgPoster.frame = CGRect(x: 5, y: 0, width: 100, height: 100)
+        
+        let lblTenPhim = cell.contentView.viewWithTag(2) as! UILabel
+        lblTenPhim.sizeToFit()
+//        lblTenPhim.textAlignment = NSTextAlignment.Center
+        lblTenPhim.text = tenPhim
+        lblTenPhim.frame = CGRect(x: 110, y: 15, width: cell.frame.size.width - 110, height: 30)
+        if self.arrTap.count > 0{
+            if arrTap[0] != "-1"{
+                let lblTap = cell.contentView.viewWithTag(3) as! UILabel
+                lblTap.sizeToFit()
+//                lblTap.textAlignment = .Center
+                lblTap.text = "Tập: \(arrTap[indexPath.row])"
+                lblTap.frame = CGRect(x: 110, y: 50, width: (cell.frame.size.width - 110) / 2, height: 30)
+//                lblTenPhim.text = self.arrTap[indexPath.row]
+            }
+            
+        }
+//        lblTenPhim.textColor = UIColor.redColor()
+        cell.setNeedsDisplay()
+        print(indexPath.row)
+        
+        return cell
+    }
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 100
+    }
+    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+//        cell.selectionStyle = UITableViewCellSelectionStyle.None
+//        let rotationtranform = CATransform3DTranslate(CATransform3DIdentity, self.view.frame.size.width + 200, 10, 0)
+//        cell.layer.transform = rotationtranform
+//        UIView.animateWithDuration(1) { () -> Void in
+//            cell.layer.transform = CATransform3DIdentity
+//        }
+        
+        cell.alpha = 0
+        UIView.animateWithDuration(0.2) { () -> Void in
+            cell.alpha = 1
+        }
+
+        
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        playVideo(arrVideos[indexPath.row])
+        videosid = arrVideosID[indexPath.row]
     }
     
 //MARK: -Fucntion
@@ -312,30 +424,32 @@ class videosViewController: masterViewController,AVPlayerItemOutputPushDelegate 
         }
     }
     
-//MARK: -init
-    
-    
     func loadDataUser(){
-        let parameter = ["fields":"id, name, link, email, last_name, picture.type(large)"]
-        FBSDKGraphRequest(graphPath: "me", parameters: parameter).startWithCompletionHandler { (connection, rs, error) in
-            if let id = rs["id"] as? String{
-                self.js.getRequest("id=thich_khongthich&videosid=\(self.videosid)&idfacebook=\(id)&like=getlike", comple: { (results) in
-//                    print(results.count)
-                    self.js.pareJson(results, getdata: ["likeid"], complet: { (rs) in
-                        dispatch_async(dispatch_get_main_queue(), {
-                            
-                            print("co like: \(rs["likeid"]?.count)")
-                            if rs["likeid"]?.count > 0{
-                                print("co like roi")
-                                self.like()
+        if ktDangNhapFb{
+            let parameter = ["fields":"id, name, link, email, last_name, picture.type(large)"]
+            FBSDKGraphRequest(graphPath: "me", parameters: parameter).startWithCompletionHandler { (connection, rs, error) in
+                if error != nil{
+                    return
+                }
+                if let id = rs["id"] as? String{
+                    self.js.getRequest("id=thich_khongthich&videosid=\(self.videosid)&idfacebook=\(id)&like=getlike", comple: { (results) in
+                        //                    print(results.count)
+                        self.js.pareJson(results, getdata: ["likeid"], complet: { (rs) in
+                            dispatch_async(dispatch_get_main_queue(), {
                                 
-                            }else{
-                                self.unlike()
-                                print("chua like")
-                            }
+                                print("co like: \(rs["likeid"]?.count)")
+                                if rs["likeid"]?.count > 0{
+                                    print("co like roi")
+                                    self.like()
+                                    
+                                }else{
+                                    self.unlike()
+                                    print("chua like")
+                                }
+                            })
                         })
                     })
-                })
+                }
             }
         }
     }
@@ -354,11 +468,10 @@ class videosViewController: masterViewController,AVPlayerItemOutputPushDelegate 
         if demThoiGianCapNhatLuotXem == 5{
             print("Cap nhat")
             print("videosid: \(videosid)")
-            timer.invalidate()
+//            timer.invalidate()
 //            js.themdulieu("id=themluotxem&")
             var params = "id=themluotxem&videosid=\(videosid)"
-            if let token = FBSDKAccessToken.currentAccessToken(){
-                print(token)
+            if ktDangNhapFb{
                 let parameter = ["fields":"id, name, link, email, last_name, picture.type(large)"]
                 FBSDKGraphRequest(graphPath: "me", parameters: parameter).startWithCompletionHandler { (connection, rs, error) in
                     if let id = rs["id"] as? String{
@@ -406,6 +519,7 @@ class videosViewController: masterViewController,AVPlayerItemOutputPushDelegate 
         lblSoLuongLike = UILabel.init()
         lblSoLuongView = UILabel.init()
         lblSoLuongConment = UILabel.init()
+        tableGoiY_Tap = UITableView.init()
         
         
     }
@@ -444,8 +558,7 @@ class videosViewController: masterViewController,AVPlayerItemOutputPushDelegate 
             unlike()
             paramsLike = "\(paramsLike)&like=unlike"
         }
-        if let token = FBSDKAccessToken.currentAccessToken(){
-            print(token)
+        if ktDangNhapFb{
             let parameter = ["fields":"id, name, link, email, last_name, picture.type(large)"]
             FBSDKGraphRequest(graphPath: "me", parameters: parameter).startWithCompletionHandler { (connection, rs, error) in
                 if let id = rs["id"] as? String{
@@ -466,15 +579,24 @@ class videosViewController: masterViewController,AVPlayerItemOutputPushDelegate 
         print("Goi y")
     }
     
+    func playVideo(fileName:String){
+        demThoiGianCapNhatLuotXem = 0
+        let url=NSURL(string: "\(self.host)content/mv/\(fileName)")
+        self.player = AVPlayer(URL: url!)
+        self.playerController.player = self.player
+    }
+    
     override func willAnimateRotationToInterfaceOrientation(toInterfaceOrientation: UIInterfaceOrientation, duration: NSTimeInterval) {
         if toInterfaceOrientation.isLandscape.boolValue{
             self.navigationController?.navigationBarHidden = true
             self.viewConmentLikeView.hidden = true
             self.menuConmentLikeGoiY.hidden = true
+            self.tableGoiY_Tap.hidden = true
             playerController.view.frame = self.view.frame
         }else{
             self.viewConmentLikeView.hidden = false
             self.menuConmentLikeGoiY.hidden = false
+            self.tableGoiY_Tap.hidden = false
             self.navigationController?.navigationBarHidden = false
             khoiTaoViTri()
         }
@@ -482,7 +604,7 @@ class videosViewController: masterViewController,AVPlayerItemOutputPushDelegate 
     
     override func loadData(params: String) {
         js.getRequest(params) { (results) -> Void in
-            self.js.pareJson(results, getdata: ["linkphim","likes","views","binhluan","videosid"], complet: { (rs) -> Void in
+            self.js.pareJson(results, getdata: ["linkphim","likes","views","binhluan","videosid", "status", "tap"], complet: { (rs) -> Void in
 //                self.strURL = "\(self.host)content/mv/\(rs["linkphim"]![0])"
 //                self.videosid = rs["videosid"]![0]
 //                self.luocThich = rs["likes"]![0]
@@ -491,8 +613,12 @@ class videosViewController: masterViewController,AVPlayerItemOutputPushDelegate 
 //                self.lblSoLuongLike.text = rs["likes"]![0]
 //                self.lblSoLuongView.text = rs["views"]![0]
 //                self.lblSoLuongConment.text = rs["binhluan"]![0]
+                self.arrVideos = rs["linkphim"]!
+                self.arrTap = rs["tap"]!
+                self.arrVideosID = rs["videosid"]!
                 dispatch_async(dispatch_get_main_queue(), {
 //                    self.khoiTaoDoiTuong()
+                    self.tableGoiY_Tap.reloadData()
                     self.videosid = rs["videosid"]![0]
                     self.luocThich = rs["likes"]![0]
                     self.luocXem = rs["views"]![0]
@@ -500,12 +626,14 @@ class videosViewController: masterViewController,AVPlayerItemOutputPushDelegate 
                     self.lblSoLuongLike.text = rs["likes"]![0]
                     self.lblSoLuongView.text = rs["views"]![0]
                     self.lblSoLuongConment.text = rs["binhluan"]![0]
-                    let url=NSURL(string: "\(self.host)content/mv/\(rs["linkphim"]![0])")
-                    self.player = AVPlayer(URL: url!)
-                    self.playerController.player = self.player
+//                    let url=NSURL(string: "\(self.host)content/mv/\(rs["linkphim"]![0])")
+//                    self.player = AVPlayer(URL: url!)
+//                    self.playerController.player = self.player
+                    self.playVideo(rs["linkphim"]![0])
                     NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(videosViewController.endVideos), name: AVPlayerItemDidPlayToEndTimeNotification, object: self.player.currentItem)
                     NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(videosViewController.eventPlayOrPause), name: AVPlayerItemTimeJumpedNotification, object: self.player.currentItem)
                     self.loading.hidden = true
+                    
                 })
             })
         }
