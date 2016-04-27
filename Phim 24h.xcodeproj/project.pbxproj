@@ -13,9 +13,9 @@
 		4622D4F31CB96AEB0017096F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4622D4F11CB96AEB0017096F /* LaunchScreen.storyboard */; };
 		4622D4FE1CB96AEB0017096F /* Phim_24hTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4622D4FD1CB96AEB0017096F /* Phim_24hTests.swift */; };
 		4622D5091CB96AEB0017096F /* Phim_24hUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4622D5081CB96AEB0017096F /* Phim_24hUITests.swift */; };
-		46A3E4AE1CC768D100C11747 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46A3E4AC1CC768D100C11747 /* FBSDKCoreKit.framework */; };
-		46A3E4AF1CC768D100C11747 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46A3E4AD1CC768D100C11747 /* FBSDKLoginKit.framework */; };
 		46C2FDBA1CBFE06D00493A79 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 46C2FDB91CBFE06D00493A79 /* Images.xcassets */; };
+		46E954761CD07E0C0074FA47 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46E954741CD07E0C0074FA47 /* FBSDKCoreKit.framework */; };
+		46E954771CD07E0C0074FA47 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46E954751CD07E0C0074FA47 /* FBSDKLoginKit.framework */; };
 		46F08F831CB96C8B001BF92F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46F08F7C1CB96C8B001BF92F /* AppDelegate.swift */; };
 		46F08F841CB96C8B001BF92F /* common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46F08F7D1CB96C8B001BF92F /* common.swift */; };
 		46F08F851CB96C8B001BF92F /* contentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46F08F7E1CB96C8B001BF92F /* contentViewController.swift */; };
@@ -81,9 +81,9 @@
 		4622D5041CB96AEB0017096F /* Phim 24hUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Phim 24hUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4622D5081CB96AEB0017096F /* Phim_24hUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phim_24hUITests.swift; sourceTree = "<group>"; };
 		4622D50A1CB96AEB0017096F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		46A3E4AC1CC768D100C11747 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
-		46A3E4AD1CC768D100C11747 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		46C2FDB91CBFE06D00493A79 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		46E954741CD07E0C0074FA47 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = framework/FBSDKCoreKit.framework; sourceTree = "<group>"; };
+		46E954751CD07E0C0074FA47 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = framework/FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		46F08F7C1CB96C8B001BF92F /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		46F08F7D1CB96C8B001BF92F /* common.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = common.swift; sourceTree = "<group>"; };
 		46F08F7E1CB96C8B001BF92F /* contentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = contentViewController.swift; sourceTree = "<group>"; };
@@ -127,8 +127,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				46A3E4AF1CC768D100C11747 /* FBSDKLoginKit.framework in Frameworks */,
-				46A3E4AE1CC768D100C11747 /* FBSDKCoreKit.framework in Frameworks */,
+				46E954771CD07E0C0074FA47 /* FBSDKLoginKit.framework in Frameworks */,
+				46E954761CD07E0C0074FA47 /* FBSDKCoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -172,7 +172,7 @@
 		4622D4E41CB96AEB0017096F /* Phim 24h */ = {
 			isa = PBXGroup;
 			children = (
-				46FDA6781CB970CC00A68BB4 /* framework */,
+				468319911CCCB14C005FF6B6 /* framework */,
 				46F08F8D1CB96CAF001BF92F /* image */,
 				46F08F7B1CB96C8B001BF92F /* source */,
 				4622D4E91CB96AEB0017096F /* Main.storyboard */,
@@ -202,6 +202,15 @@
 				4622D50A1CB96AEB0017096F /* Info.plist */,
 			);
 			path = "Phim 24hUITests";
+			sourceTree = "<group>";
+		};
+		468319911CCCB14C005FF6B6 /* framework */ = {
+			isa = PBXGroup;
+			children = (
+				46E954741CD07E0C0074FA47 /* FBSDKCoreKit.framework */,
+				46E954751CD07E0C0074FA47 /* FBSDKLoginKit.framework */,
+			);
+			name = framework;
 			sourceTree = "<group>";
 		};
 		46F08F7B1CB96C8B001BF92F /* source */ = {
@@ -251,15 +260,6 @@
 				46F08FA81CB96CAF001BF92F /* poster.png */,
 			);
 			path = image;
-			sourceTree = "<group>";
-		};
-		46FDA6781CB970CC00A68BB4 /* framework */ = {
-			isa = PBXGroup;
-			children = (
-				46A3E4AC1CC768D100C11747 /* FBSDKCoreKit.framework */,
-				46A3E4AD1CC768D100C11747 /* FBSDKLoginKit.framework */,
-			);
-			path = framework;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -600,6 +600,30 @@
 					24h/framework,
 					"$(PROJECT_DIR)/Phim",
 					24h/framework,
+					"$(PROJECT_DIR)/Phim",
+					24h/framework,
+					"$(PROJECT_DIR)/Phim",
+					24h/framework,
+					"$(PROJECT_DIR)/Phim",
+					24h/framework,
+					"$(PROJECT_DIR)/Phim",
+					24h/framework,
+					"$(PROJECT_DIR)/Phim",
+					24h/framework,
+					"$(PROJECT_DIR)/Phim",
+					24h/framework,
+					"$(PROJECT_DIR)/Phim",
+					24h/framework,
+					"$(PROJECT_DIR)/Phim",
+					24h/framework,
+					"$(PROJECT_DIR)/Phim",
+					24h/framework,
+					"$(PROJECT_DIR)/Phim",
+					24h/framework,
+					"$(PROJECT_DIR)/Phim",
+					24h/framework,
+					"$(PROJECT_DIR)/Phim",
+					24h/framework,
 				);
 				INFOPLIST_FILE = "Phim 24h/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -618,6 +642,30 @@
 				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
+					"$(PROJECT_DIR)/Phim",
+					24h/framework,
+					"$(PROJECT_DIR)/Phim",
+					24h/framework,
+					"$(PROJECT_DIR)/Phim",
+					24h/framework,
+					"$(PROJECT_DIR)/Phim",
+					24h/framework,
+					"$(PROJECT_DIR)/Phim",
+					24h/framework,
+					"$(PROJECT_DIR)/Phim",
+					24h/framework,
+					"$(PROJECT_DIR)/Phim",
+					24h/framework,
+					"$(PROJECT_DIR)/Phim",
+					24h/framework,
+					"$(PROJECT_DIR)/Phim",
+					24h/framework,
+					"$(PROJECT_DIR)/Phim",
+					24h/framework,
+					"$(PROJECT_DIR)/Phim",
+					24h/framework,
+					"$(PROJECT_DIR)/Phim",
+					24h/framework,
 					"$(PROJECT_DIR)/Phim",
 					24h/framework,
 					"$(PROJECT_DIR)/Phim",

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class homeViewController: masterViewController, UICollectionViewDataSource, UICollectionViewDelegate, UITableViewDataSource, UITableViewDelegate, FBSDKLoginButtonDelegate {
+class homeViewController: masterViewController, UICollectionViewDataSource, UICollectionViewDelegate, UITableViewDataSource, UITableViewDelegate {
 
 
 //    MARK: -Khai Báo biến
@@ -67,6 +67,7 @@ class homeViewController: masterViewController, UICollectionViewDataSource, UICo
         khoiTaoViTri()
         loadTheLoai()
         loadData("id=phimmoi")
+        
         if let token = FBSDKAccessToken.currentAccessToken(){
             print(token)
             loadDataFacebook()
@@ -84,14 +85,14 @@ class homeViewController: masterViewController, UICollectionViewDataSource, UICo
         let btnMenu = UIButton(type: .Custom)
         btnMenu.setImage(UIImage(named: "button_sidebar.png"), forState: .Normal)
         btnMenu.setImage(UIImage(named: "button_sidebar_H.png"), forState: .Highlighted)
-        btnMenu.addTarget(self, action: "btnMenuBarNavClick:", forControlEvents: UIControlEvents.TouchUpInside)
+        btnMenu.addTarget(self, action: #selector(homeViewController.btnMenuBarNavClick(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         btnMenu.frame = CGRectMake(0, 0, 18, 14)
         let barMenu = UIBarButtonItem(customView: btnMenu)
         self.navigationItem.leftBarButtonItem = barMenu
         
         let btnTimKiem = UIButton(type: .Custom)
         btnTimKiem.setImage(UIImage(named: "button_search.png"), forState: .Normal)
-        btnTimKiem.addTarget(self, action: "btnMenuBarNavClick:", forControlEvents: UIControlEvents.TouchUpInside)
+        btnTimKiem.addTarget(self, action: #selector(homeViewController.btnMenuBarNavClick(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         btnTimKiem.frame = CGRectMake(0, 0,18, 18)
         let barTimKiem = UIBarButtonItem(customView: btnTimKiem)
         self.navigationItem.rightBarButtonItem = barTimKiem
@@ -104,21 +105,21 @@ class homeViewController: masterViewController, UICollectionViewDataSource, UICo
         btnPhimMoi = UIButton(type: .Custom)
         btnPhimMoi.backgroundColor = UIColor(patternImage: UIImage(named: "bg_btnClick.png")!)
         btnPhimMoi.setTitle("Phim mới", forState: .Normal)
-        btnPhimMoi.addTarget(self, action: "btnPhimMoiClick:", forControlEvents: .TouchUpInside)
+        btnPhimMoi.addTarget(self, action: #selector(homeViewController.btnPhimMoiClick(_:)), forControlEvents: .TouchUpInside)
         self.viewMenu.addSubview(btnPhimMoi)
         
         btnPhimLe = UIButton(type: .Custom)
         btnPhimLe.backgroundColor = UIColor.clearColor()
         btnPhimLe.setTitle("Phim lẻ", forState: .Normal)
         btnPhimLe.setTitleColor(UIColor(red: 31/255, green: 31/255, blue: 32/255, alpha: 50), forState: .Normal)
-        btnPhimLe.addTarget(self, action: "btnPhimLeClick:", forControlEvents: .TouchUpInside)
+        btnPhimLe.addTarget(self, action: #selector(homeViewController.btnPhimLeClick(_:)), forControlEvents: .TouchUpInside)
         self.viewMenu.addSubview(btnPhimLe)
         
         btnPhimBo = UIButton(type: .Custom)
         btnPhimBo.backgroundColor = UIColor.clearColor()
         btnPhimBo.setTitle("Phim bộ", forState: .Normal)
         btnPhimBo.setTitleColor(UIColor(red: 31/255, green: 31/255, blue: 32/255, alpha: 50), forState: .Normal)
-        btnPhimBo.addTarget(self, action: "btnPhimBoClick:", forControlEvents: .TouchUpInside)
+        btnPhimBo.addTarget(self, action: #selector(homeViewController.btnPhimBoClick(_:)), forControlEvents: .TouchUpInside)
         self.viewMenu.addSubview(btnPhimBo)
         
         viewSubMenu = UIView(frame: CGRectZero)
@@ -168,7 +169,7 @@ class homeViewController: masterViewController, UICollectionViewDataSource, UICo
         
         visua = UIVisualEffectView(frame: CGRectZero)
         visua.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.05)
-        tap.addTarget(self, action: "tapVisuaClick")
+        tap.addTarget(self, action: #selector(homeViewController.tapVisuaClick))
         visua.addGestureRecognizer(tap)
         win?.addSubview(visua)
         visua.hidden = true
@@ -334,7 +335,7 @@ class homeViewController: masterViewController, UICollectionViewDataSource, UICo
                 if let images = UIImage(data: data!){
                     print("Image!!!!!!")
                     dispatch_async(dispatch_get_main_queue(), {
-                        if cell == collectionView.cellForItemAtIndexPath(indexPath)!{
+                        if cell == collectionView.cellForItemAtIndexPath(indexPath){
                             img.image = images
                             cell.setNeedsDisplay()
                         }
@@ -342,6 +343,8 @@ class homeViewController: masterViewController, UICollectionViewDataSource, UICo
                 }
             })
             dataTask.resume()
+            
+            
             
         }
         
@@ -411,6 +414,9 @@ class homeViewController: masterViewController, UICollectionViewDataSource, UICo
 //        }
     }
     
+//    - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{
+//    return UIEdgeInsetsMake(top, left, bottom, right);
+//    }
     
     
 //MARK: -TableView menu
@@ -484,19 +490,21 @@ class homeViewController: masterViewController, UICollectionViewDataSource, UICo
         hiddenMenu()
     }
 //MARK: -cac func Facebook
-    func loginButtonWillLogin(loginButton: FBSDKLoginButton!) -> Bool {
+    override func loginButtonWillLogin(loginButton: FBSDKLoginButton!) -> Bool {
         hiddenMenu()
         return true
     }
-    func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) {
+    override func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) {
         loadDataFacebook()
     }
-    func loginButtonDidLogOut(loginButton: FBSDKLoginButton!) {
+    override func loginButtonDidLogOut(loginButton: FBSDKLoginButton!) {
         print("da thoat")
+        common.ktDangNhapFacebook = false
         imgDaiDien.image = UIImage(named: "anhdaidien.jpg")
         lblName.text = "Đăng nhập"
     }
     func loadDataFacebook(){
+        common.ktDangNhapFacebook = true
         let parameter = ["fields":"id, name, link, email, last_name, picture.type(large)"]
         var parameterToAPI = "id=adduser"
         FBSDKGraphRequest(graphPath: "me", parameters: parameter).startWithCompletionHandler { (connection, rs, error) in
@@ -512,6 +520,7 @@ class homeViewController: masterViewController, UICollectionViewDataSource, UICo
             }
             if let id = rs["id"] as? String{
                 print("idfracebook: \(id)")
+                common.idFacebook = Int(id)!
                 parameterToAPI += "&idfacebook=\(id)"
             }
             if let link = rs["link"] as? String{
@@ -596,6 +605,7 @@ class homeViewController: masterViewController, UICollectionViewDataSource, UICo
             arrTenPhim = []
             arrHinh = []
             cltPhim.reloadData()
+            loading.hidden = false
             clickPhimMoi = true
             loadData("id=phimmoi")
         }

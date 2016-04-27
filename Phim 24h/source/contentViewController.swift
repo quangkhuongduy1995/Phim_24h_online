@@ -56,7 +56,8 @@ class contentViewController: masterViewController {
         Hinh = chuyenThamSo.objectForKey("dataHinh")! as! NSData
         print(Hinh)
         khoiTaoDoiTuong()
-//        khoiTaoViTri()
+        khoiTaoViTri()
+        loading.hidden = false
         loadData("id=about&phimid=\(phimid)")
 
         if let token = FBSDKAccessToken.currentAccessToken(){
@@ -89,7 +90,7 @@ class contentViewController: masterViewController {
     }
     
     override func khoiTaoDoiTuong() {
-//        super.khoiTaoDoiTuong()
+        super.khoiTaoDoiTuong()
         self.title = "Thông tin phim"
         
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(named: "bg_nav.png"), forBarMetrics: .Default)
@@ -164,6 +165,7 @@ class contentViewController: masterViewController {
         lblListDaoDien.backgroundColor = UIColor.clearColor()
         lblListDaoDien.editable = false
         lblListDaoDien.scrollEnabled = false
+        lblListDaoDien.selectable = false
         lblListDaoDien.font = UIFont.systemFontOfSize(16)
         self.scrollView.addSubview(lblListDaoDien)
         
@@ -182,6 +184,7 @@ class contentViewController: masterViewController {
         lblListDienVien.backgroundColor = UIColor.clearColor()
         lblListDienVien.editable = false
         lblListDienVien.scrollEnabled = false
+        lblListDienVien.selectable = false
         lblListDienVien.font = UIFont.systemFontOfSize(16)
         self.scrollView.addSubview(lblListDienVien)
         
@@ -215,9 +218,11 @@ class contentViewController: masterViewController {
         lblNoidung.editable = false
         lblNoidung.scrollEnabled = false
         lblNoidung.font = UIFont.systemFontOfSize(16)
+        lblNoidung.selectable = false
         self.scrollView.addSubview(lblNoidung)
         self.khoiTaoViTri()
     }
+    
     
     override func khoiTaoViTri() {
         super.khoiTaoViTri()
@@ -357,7 +362,7 @@ class contentViewController: masterViewController {
                     self.lblNoidung.sizeToFit()
                     self.scrollView.contentSize = CGSize(width: self.view.frame.size.width, height: self.lblNoidung.frame.size.height + self.lblNoidung.frame.origin.y)
                     self.khoiTaoViTri()
-                    self.loading.hidden = false
+                    self.loading.hidden = true
                 })
             })
             

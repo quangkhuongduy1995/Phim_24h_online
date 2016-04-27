@@ -63,7 +63,7 @@ class json {
             for i in 0...tongSoDuLieu - 1{
                 for index in 0...getdata.count - 1{
                     print(data!![i][getdata[index]]!!)
-                    parse[getdata[index]]?.append(data!![i][getdata[index]]!! as! String)
+                    parse[getdata[index]]?.append("\(data!![i][getdata[index]]!!)")
                 }
             }
         }else{

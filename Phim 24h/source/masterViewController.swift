@@ -8,10 +8,11 @@
 
 import UIKit
 
-class masterViewController: UIViewController {
+class masterViewController: UIViewController,FBSDKLoginButtonDelegate {
     var loading = UIVisualEffectView()
     var activity = UIActivityIndicatorView()
     var lblLoading = UILabel()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,9 +62,29 @@ class masterViewController: UIViewController {
         lblLoading.frame.origin = CGPoint(x: self.activity.frame.origin.x + activity.frame.size.width + 2, y: self.view.frame.size.height/2 - activity.frame.size.height)
 
     }
+    //MARK: facebook
+    
+    func loginButtonDidLogOut(loginButton: FBSDKLoginButton!) {
+        
+    }
+    func loginButtonWillLogin(loginButton: FBSDKLoginButton!) -> Bool {
+        return true
+    }
+    func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) {
+        
+    }
+    
     func loadData(params:String){
         
     }
+    //MARK: -aler
+    func alertThongBao(title:String, message:String){
+        let alertViewThongbao = UIAlertController(title: title , message: message, preferredStyle: .Alert)
+        alertViewThongbao.addAction(UIAlertAction(title: "Huỷ thông báo", style: .Cancel, handler: nil))
+        self.presentViewController(alertViewThongbao, animated: true, completion: nil)
+    }
+    
+    
     
     //MARK: -Khoá xoay màn hình
     func forcePortrait(){
