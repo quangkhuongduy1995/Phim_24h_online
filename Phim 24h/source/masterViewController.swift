@@ -120,6 +120,9 @@ extension homeViewController : UINavigationControllerDelegate{
         if viewController is contentViewController{
             self.forcePortrait()
         }
+        if viewController is timKiemViewController{
+            self.forcePortrait()
+        }
         if viewController is homeViewController
         {
             dispatch_async(dispatch_get_main_queue(), {

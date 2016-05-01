@@ -21,6 +21,7 @@ class contentViewController: masterViewController {
     var dienVien: String = ""
     var namPhatHanh:String = ""
     var noiDungPhim:String = ""
+    var videosid:String = ""
     
     var scrollView = UIScrollView()
     var imgPhim = UIImageView()
@@ -98,11 +99,11 @@ class contentViewController: masterViewController {
         self.title = "Nội dung"
         let btnBack = UIButton(type: .Custom)
         btnBack.setImage(UIImage(named: "button_back.png"), forState: .Normal)
-        btnBack.addTarget(self, action: "backClick", forControlEvents: UIControlEvents.TouchUpInside)
+        btnBack.addTarget(self, action: #selector(contentViewController.backClick), forControlEvents: UIControlEvents.TouchUpInside)
         btnBack.frame = CGRectMake(0, 0, 18, 18)
         let barBack = UIBarButtonItem(customView: btnBack)
         self.navigationItem.leftBarButtonItem = barBack
-        self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont.systemFontOfSize(25)]
+        self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont.systemFontOfSize(20)]
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         
@@ -334,19 +335,25 @@ class contentViewController: masterViewController {
 
 //MARK: -init
     func btnViewPhimClick(sender:UIButton){
+        loading.hidden = false
         js.getRequest("id=getvideos&phimid=\(phimid)") { (results) -> Void in
-            self.js.pareJson(results, getdata: ["linkphim","likes","views","binhluan"], complet: { (rs) -> Void in
+            self.js.pareJson(results, getdata: ["videosid"], complet: { (rs) -> Void in
                 dispatch_async(dispatch_get_main_queue(), {
-                    
+                    self.videosid = rs["videosid"]![0]
+                    print(rs)
+                    self.loading.hidden = true
+                    self.performSegueWithIdentifier("nextViewVideos", sender: self)
                 })
+                
             })
         }
-        self.performSegueWithIdentifier("nextViewVideos", sender: self)
+        
     }
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         chuyenThamSo.setValue(phimid, forKeyPath: "phimID")
         chuyenThamSo.setValue(Hinh, forKey: "datahinh")
         chuyenThamSo.setValue(lblTenPhim.text, forKey: "tenphim")
+        chuyenThamSo.setValue(videosid, forKey: "videosid")
     }
     
     override func loadData(params:String){

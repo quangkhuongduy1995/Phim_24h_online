@@ -7,15 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		460346F21CD3A66C0017F297 /* timKiemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 460346F11CD3A66C0017F297 /* timKiemViewController.swift */; };
 		4622D4EB1CB96AEB0017096F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4622D4E91CB96AEB0017096F /* Main.storyboard */; };
 		4622D4EE1CB96AEB0017096F /* Phim_24h.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4622D4EC1CB96AEB0017096F /* Phim_24h.xcdatamodeld */; };
 		4622D4F01CB96AEB0017096F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4622D4EF1CB96AEB0017096F /* Assets.xcassets */; };
 		4622D4F31CB96AEB0017096F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4622D4F11CB96AEB0017096F /* LaunchScreen.storyboard */; };
 		4622D4FE1CB96AEB0017096F /* Phim_24hTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4622D4FD1CB96AEB0017096F /* Phim_24hTests.swift */; };
 		4622D5091CB96AEB0017096F /* Phim_24hUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4622D5081CB96AEB0017096F /* Phim_24hUITests.swift */; };
+		46901EBD1CD60AD700AD4925 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46901EBB1CD60AD700AD4925 /* FBSDKCoreKit.framework */; };
+		46901EBE1CD60AD700AD4925 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46901EBC1CD60AD700AD4925 /* FBSDKLoginKit.framework */; };
 		46C2FDBA1CBFE06D00493A79 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 46C2FDB91CBFE06D00493A79 /* Images.xcassets */; };
-		46E954761CD07E0C0074FA47 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46E954741CD07E0C0074FA47 /* FBSDKCoreKit.framework */; };
-		46E954771CD07E0C0074FA47 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46E954751CD07E0C0074FA47 /* FBSDKLoginKit.framework */; };
 		46F08F831CB96C8B001BF92F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46F08F7C1CB96C8B001BF92F /* AppDelegate.swift */; };
 		46F08F841CB96C8B001BF92F /* common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46F08F7D1CB96C8B001BF92F /* common.swift */; };
 		46F08F851CB96C8B001BF92F /* contentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46F08F7E1CB96C8B001BF92F /* contentViewController.swift */; };
@@ -69,6 +70,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		460346F11CD3A66C0017F297 /* timKiemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = timKiemViewController.swift; sourceTree = "<group>"; };
 		4622D4E21CB96AEB0017096F /* Phim 24h.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Phim 24h.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4622D4EA1CB96AEB0017096F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4622D4ED1CB96AEB0017096F /* Phim_24h.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Phim_24h.xcdatamodel; sourceTree = "<group>"; };
@@ -81,9 +83,9 @@
 		4622D5041CB96AEB0017096F /* Phim 24hUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Phim 24hUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4622D5081CB96AEB0017096F /* Phim_24hUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phim_24hUITests.swift; sourceTree = "<group>"; };
 		4622D50A1CB96AEB0017096F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		46901EBB1CD60AD700AD4925 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = framework/FBSDKCoreKit.framework; sourceTree = "<group>"; };
+		46901EBC1CD60AD700AD4925 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = framework/FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		46C2FDB91CBFE06D00493A79 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		46E954741CD07E0C0074FA47 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = framework/FBSDKCoreKit.framework; sourceTree = "<group>"; };
-		46E954751CD07E0C0074FA47 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = framework/FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		46F08F7C1CB96C8B001BF92F /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		46F08F7D1CB96C8B001BF92F /* common.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = common.swift; sourceTree = "<group>"; };
 		46F08F7E1CB96C8B001BF92F /* contentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = contentViewController.swift; sourceTree = "<group>"; };
@@ -127,8 +129,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				46E954771CD07E0C0074FA47 /* FBSDKLoginKit.framework in Frameworks */,
-				46E954761CD07E0C0074FA47 /* FBSDKCoreKit.framework in Frameworks */,
+				46901EBE1CD60AD700AD4925 /* FBSDKLoginKit.framework in Frameworks */,
+				46901EBD1CD60AD700AD4925 /* FBSDKCoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -180,8 +182,8 @@
 				4622D4F11CB96AEB0017096F /* LaunchScreen.storyboard */,
 				4622D4F41CB96AEB0017096F /* Info.plist */,
 				4622D4EC1CB96AEB0017096F /* Phim_24h.xcdatamodeld */,
-				46F08FC41CB96CDC001BF92F /* Phim 24h-Bridging-Header.h */,
 				46C2FDB91CBFE06D00493A79 /* Images.xcassets */,
+				46F08FC41CB96CDC001BF92F /* Phim 24h-Bridging-Header.h */,
 			);
 			path = "Phim 24h";
 			sourceTree = "<group>";
@@ -207,8 +209,8 @@
 		468319911CCCB14C005FF6B6 /* framework */ = {
 			isa = PBXGroup;
 			children = (
-				46E954741CD07E0C0074FA47 /* FBSDKCoreKit.framework */,
-				46E954751CD07E0C0074FA47 /* FBSDKLoginKit.framework */,
+				46901EBB1CD60AD700AD4925 /* FBSDKCoreKit.framework */,
+				46901EBC1CD60AD700AD4925 /* FBSDKLoginKit.framework */,
 			);
 			name = framework;
 			sourceTree = "<group>";
@@ -224,6 +226,7 @@
 				46F08F7D1CB96C8B001BF92F /* common.swift */,
 				46F08F7F1CB96C8B001BF92F /* functionJson.swift */,
 				46F08F821CB96C8B001BF92F /* ViewController.swift */,
+				460346F11CD3A66C0017F297 /* timKiemViewController.swift */,
 			);
 			path = source;
 			sourceTree = "<group>";
@@ -425,6 +428,7 @@
 				46F08F891CB96C8B001BF92F /* ViewController.swift in Sources */,
 				46F08F881CB96C8B001BF92F /* masterViewController.swift in Sources */,
 				46F08F861CB96C8B001BF92F /* functionJson.swift in Sources */,
+				460346F21CD3A66C0017F297 /* timKiemViewController.swift in Sources */,
 				46F08F851CB96C8B001BF92F /* contentViewController.swift in Sources */,
 				46F08FCC1CB96D83001BF92F /* videosViewController.swift in Sources */,
 				46F08F831CB96C8B001BF92F /* AppDelegate.swift in Sources */,
@@ -624,8 +628,25 @@
 					24h/framework,
 					"$(PROJECT_DIR)/Phim",
 					24h/framework,
+					"$(PROJECT_DIR)/Phim",
+					24h/framework,
+					"$(PROJECT_DIR)/Phim",
+					24h/framework,
+					"$(PROJECT_DIR)/Phim",
+					24h/framework,
+					"$(PROJECT_DIR)/Phim",
+					24h/framework,
+					"$(PROJECT_DIR)/Phim",
+					24h/framework,
+					"$(PROJECT_DIR)/Phim",
+					24h/framework,
+					"$(PROJECT_DIR)/Phim",
+					24h/framework,
+					"$(PROJECT_DIR)/Phim",
+					24h/framework,
 				);
 				INFOPLIST_FILE = "Phim 24h/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Com.QuangKhuongDuy.Phim24h.Phim-24h";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -690,8 +711,25 @@
 					24h/framework,
 					"$(PROJECT_DIR)/Phim",
 					24h/framework,
+					"$(PROJECT_DIR)/Phim",
+					24h/framework,
+					"$(PROJECT_DIR)/Phim",
+					24h/framework,
+					"$(PROJECT_DIR)/Phim",
+					24h/framework,
+					"$(PROJECT_DIR)/Phim",
+					24h/framework,
+					"$(PROJECT_DIR)/Phim",
+					24h/framework,
+					"$(PROJECT_DIR)/Phim",
+					24h/framework,
+					"$(PROJECT_DIR)/Phim",
+					24h/framework,
+					"$(PROJECT_DIR)/Phim",
+					24h/framework,
 				);
 				INFOPLIST_FILE = "Phim 24h/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Com.QuangKhuongDuy.Phim24h.Phim-24h";
 				PRODUCT_NAME = "$(TARGET_NAME)";

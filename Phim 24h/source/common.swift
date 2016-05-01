@@ -10,8 +10,8 @@ import Foundation
 import UIKit
 class common {
     static var loading:Bool = true
-    static let host:String = "http://192.168.1.105/"
     static var ktDangNhapFacebook = false
+    static let host:String = "http://192.168.1.103/"
     static var idFacebook = -1
 
 //    static let thongbao : UIAlertController = {

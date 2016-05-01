@@ -36,7 +36,6 @@ class videosViewController: masterViewController,AVPlayerItemOutputPushDelegate,
     var checkPlay = true
     var checkLike = false
     var ktClickComment = false
-    var ktDangNhapFb = false
     
     var player:AVPlayer!
     var playerItem:AVPlayerItem!
@@ -75,15 +74,14 @@ class videosViewController: masterViewController,AVPlayerItemOutputPushDelegate,
         host = common.host
         dataPoster = chuyenThamSo.objectForKey("datahinh") as! NSData
         let phimid = chuyenThamSo.objectForKey("phimID")! as! String
+        videosid = chuyenThamSo.objectForKey("videosid")! as! String
         tenPhim = chuyenThamSo.objectForKey("tenphim")! as! String
         loadData("id=getvideos&phimid=\(phimid)")
         khoiTaoDoiTuong()
 //        khoiTaoViTri()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(videosViewController.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
-        if let token = FBSDKAccessToken.currentAccessToken() {
-            print("token: ---------\(token)")
-            ktDangNhapFb = true
-            loadDataUser()
+        if common.ktDangNhapFacebook {
+            loadDataUser(videosid)
         }
         
         
@@ -106,7 +104,7 @@ class videosViewController: masterViewController,AVPlayerItemOutputPushDelegate,
         btnBack.frame = CGRectMake(0, 0, 18, 18)
         let barBack = UIBarButtonItem(customView: btnBack)
         self.navigationItem.leftBarButtonItem = barBack
-        self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont.systemFontOfSize(25)]
+        self.navigationController!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont.systemFontOfSize(20)]
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         
@@ -475,8 +473,11 @@ class videosViewController: masterViewController,AVPlayerItemOutputPushDelegate,
 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 //        let cell = tableView.cellForRowAtIndexPath(indexPath)!
+        ktClickComment = false
         playVideo(arrVideos[indexPath.row])
         videosid = arrVideosID[indexPath.row]
+        load_SoLuong_Likes_Views_BinhLuan(videosid)
+        loadDataUser(videosid)
     }
     
     func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
@@ -527,24 +528,32 @@ class videosViewController: masterViewController,AVPlayerItemOutputPushDelegate,
     
 //MARK: -ButtonClick
     
+    func ktVideosCoThichHayKhong(){
+        
+    }
+    
     func btnLikeClick(sender:UIButton){
-        var paramsLike = "id=thich_khongthich&videosid=\(videosid)"
-        if !checkLike{
-            like()
-            paramsLike = "\(paramsLike)&like=like"
-        }else{
-            unlike()
-            paramsLike = "\(paramsLike)&like=unlike"
-        }
-        if ktDangNhapFb{
-            let parameter = ["fields":"id, name, link, email, last_name, picture.type(large)"]
-            FBSDKGraphRequest(graphPath: "me", parameters: parameter).startWithCompletionHandler { (connection, rs, error) in
-                if let id = rs["id"] as? String{
-                    paramsLike = "\(paramsLike)&idfacebook=\(id)"
-                    self.js.themdulieu(paramsLike)
-                }
+        if common.ktDangNhapFacebook{
+            var paramsLike = "id=thich_khongthich&videosid=\(videosid)"
+            if !checkLike{
+                like()
+                paramsLike = "\(paramsLike)&like=like"
+            }else{
+                unlike()
+                paramsLike = "\(paramsLike)&like=unlike"
             }
+            paramsLike = "\(paramsLike)&idfacebook=\(common.idFacebook)"
+            self.js.getRequest(paramsLike, comple: { (results) in
+                self.js.pareJson(results, getdata: ["likes"], complet: { (rs) in
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self.lblSoLuongLike.text = rs["likes"]![0]
+                    })
+                })
+            })
+        }else{
+            alertThongBao("Lỗi đăng nhập", message: "Bạn chưa đăng nhập \n Vui lòng đăng nhập để có thể xử dụng đầy đủ các chức năng.")
         }
+        
     }
     
     func btnConmentClick(sender:UIButton){
@@ -596,10 +605,6 @@ class videosViewController: masterViewController,AVPlayerItemOutputPushDelegate,
     }
 //MARK: -Fucntion
     
-    func guiBinhLuan(param:String){
-        
-    }
-    
     
     func anBanPhim(){
         if txtVietBinhLuan.text.isEmpty {
@@ -644,34 +649,25 @@ class videosViewController: masterViewController,AVPlayerItemOutputPushDelegate,
         }
     }
     
-    func loadDataUser(){
-        if ktDangNhapFb{
-            let parameter = ["fields":"id, name, link, email, last_name, picture.type(large)"]
-            FBSDKGraphRequest(graphPath: "me", parameters: parameter).startWithCompletionHandler { (connection, rs, error) in
-                if error != nil{
-                    return
-                }
-                if let id = rs["id"] as? String{
-                    self.idFacebook = Int(id)!
-                    self.js.getRequest("id=thich_khongthich&videosid=\(self.videosid)&idfacebook=\(id)&like=getlike", comple: { (results) in
-                        //                    print(results.count)
-                        self.js.pareJson(results, getdata: ["likeid"], complet: { (rs) in
-                            dispatch_async(dispatch_get_main_queue(), {
-                                
-                                print("co like: \(rs["likeid"]?.count)")
-                                if rs["likeid"]?.count > 0{
-                                    print("co like roi")
-                                    self.like()
-                                    
-                                }else{
-                                    self.unlike()
-                                    print("chua like")
-                                }
-                            })
-                        })
+    func loadDataUser(videoid:String){
+        if common.ktDangNhapFacebook{
+            self.js.getRequest("id=thich_khongthich&videosid=\(videoid)&idfacebook=\(common.idFacebook)&like=getlike", comple: { (results) in
+                //                    print(results.count)
+                self.js.pareJson(results, getdata: ["likeid"], complet: { (rs) in
+                    dispatch_async(dispatch_get_main_queue(), {
+                        
+                        print("co like: \(rs["likeid"]?.count)")
+                        if rs["likeid"]?.count > 0{
+                            print("co like roi")
+                            self.like()
+                            
+                        }else{
+                            self.unlike()
+                            print("chua like")
+                        }
                     })
-                }
-            }
+                })
+            })
         }
     }
     
@@ -692,7 +688,7 @@ class videosViewController: masterViewController,AVPlayerItemOutputPushDelegate,
 //            timer.invalidate()
 //            js.themdulieu("id=themluotxem&")
             var params = "id=themluotxem&videosid=\(videosid)"
-            if ktDangNhapFb{
+            if common.ktDangNhapFacebook{
                 let parameter = ["fields":"id, name, link, email, last_name, picture.type(large)"]
                 FBSDKGraphRequest(graphPath: "me", parameters: parameter).startWithCompletionHandler { (connection, rs, error) in
                     if let id = rs["id"] as? String{
@@ -783,12 +779,18 @@ class videosViewController: masterViewController,AVPlayerItemOutputPushDelegate,
             self.viewConmentLikeView.hidden = true
             self.menuConmentLikeGoiY.hidden = true
             self.tableGoiY_Tap.hidden = true
+            self.viewBinhLuan.hidden = true
+            self.viewVietBinhLuan.hidden = true
+            scrollBinhluan.hidden = true
             txtVietBinhLuan.resignFirstResponder()
             playerController.view.frame = self.view.frame
         }else{
             self.viewConmentLikeView.hidden = false
             self.menuConmentLikeGoiY.hidden = false
             self.tableGoiY_Tap.hidden = false
+            self.viewBinhLuan.hidden = false
+            self.viewVietBinhLuan.hidden = false
+            scrollBinhluan.hidden = false
             self.navigationController?.navigationBarHidden = false
             khoiTaoViTri()
         }
@@ -796,11 +798,18 @@ class videosViewController: masterViewController,AVPlayerItemOutputPushDelegate,
     
     func abc(params: String) {
         js.getRequest(params) { (results) -> Void in
-            self.js.pareJson(results, getdata: ["tenfacebook","binhluan","idfacebook"], complet: { (rs) -> Void in
+            self.js.pareJson(results, getdata: ["tenfacebook","loibinhluan","idfacebook", "binhluan"], complet: { (rs) -> Void in
                 dispatch_async(dispatch_get_main_queue(), {
-                    self.arrTenFacebook = rs["tenfacebook"]!
-                    self.arrIdFacebook = rs["idfacebook"]!
-                    self.arrBinhLuan = rs["binhluan"]!
+                    if rs["tenfacebook"]?.count > 0{
+                        self.arrTenFacebook = rs["tenfacebook"]!
+                        self.arrIdFacebook = rs["idfacebook"]!
+                        self.arrBinhLuan = rs["loibinhluan"]!
+                        self.lblSoLuongConment.text = rs["binhluan"]![0] as String
+                    }else{
+                        self.arrTenFacebook = []
+                        self.arrIdFacebook = []
+                        self.arrBinhLuan = []
+                    }
                     self.LoadBinhLuan()
                 })
             })
@@ -808,6 +817,10 @@ class videosViewController: masterViewController,AVPlayerItemOutputPushDelegate,
     }
     
     func LoadBinhLuan(){
+        for item in scrollBinhluan.subviews{
+            item.removeFromSuperview()
+        }
+        
         let w:CGFloat = self.scrollBinhluan.frame.size.width - 94
         var y:CGFloat = 0
         var h:CGFloat = 0
@@ -865,7 +878,7 @@ class videosViewController: masterViewController,AVPlayerItemOutputPushDelegate,
             
             vBinhLuan.frame.size = CGSize(width: lblBinhLuan.frame.size.width + 10, height: lblBinhLuan.frame.size.height + 10)
             
-            if idFacebook == Int(arrIdFacebook[i]) {
+            if common.idFacebook == Int(arrIdFacebook[i]) {
                 name.text = "Me"
                 name.sizeToFit()
                 name.frame.origin = CGPoint(x: scrollBinhluan.frame.size.width - name.frame.size.width - 5, y: name.frame.origin.y)
@@ -878,26 +891,28 @@ class videosViewController: masterViewController,AVPlayerItemOutputPushDelegate,
         }
         y += 8
         scrollBinhluan.contentSize = CGSize(width: self.view.frame.size.width, height: y)
-//        scrollBinhluan.setContentOffset(CGPointMake(0, self.viewVietBinhLuan.frame.size.height - h - 8), animated: true)
-        print("facebook: \(idFacebook)")
+        print("facebook: \(common.idFacebook)")
+    }
+    func load_SoLuong_Likes_Views_BinhLuan(videsid:String){
+        js.getRequest("id=soluonglikesviewsbinhluan&videosid=\(videsid)") { (results) -> Void in
+            self.js.pareJson(results, getdata: ["likes","views","binhluan"], complet: { (rs) in
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.lblSoLuongLike.text = rs["likes"]![0]
+                    self.lblSoLuongConment.text = rs["binhluan"]![0]
+                    self.lblSoLuongView.text = rs["views"]![0]
+                })
+            })
+            
+        }
     }
     
     override func loadData(params: String) {
         js.getRequest(params) { (results) -> Void in
             self.js.pareJson(results, getdata: ["linkphim","likes","views","binhluan","videosid", "status", "tap"], complet: { (rs) -> Void in
-//                self.strURL = "\(self.host)content/mv/\(rs["linkphim"]![0])"
-//                self.videosid = rs["videosid"]![0]
-//                self.luocThich = rs["likes"]![0]
-//                self.luocXem = rs["views"]![0]
-//                self.binhLuan = rs["binhluan"]![0]
-//                self.lblSoLuongLike.text = rs["likes"]![0]
-//                self.lblSoLuongView.text = rs["views"]![0]
-//                self.lblSoLuongConment.text = rs["binhluan"]![0]
                 self.arrVideos = rs["linkphim"]!
                 self.arrTap = rs["tap"]!
                 self.arrVideosID = rs["videosid"]!
                 dispatch_async(dispatch_get_main_queue(), {
-//                    self.khoiTaoDoiTuong()
                     self.tableGoiY_Tap.reloadData()
                     self.videosid = rs["videosid"]![0]
                     self.luocThich = rs["likes"]![0]
@@ -906,9 +921,6 @@ class videosViewController: masterViewController,AVPlayerItemOutputPushDelegate,
                     self.lblSoLuongLike.text = rs["likes"]![0]
                     self.lblSoLuongView.text = rs["views"]![0]
                     self.lblSoLuongConment.text = rs["binhluan"]![0]
-//                    let url=NSURL(string: "\(self.host)content/mv/\(rs["linkphim"]![0])")
-//                    self.player = AVPlayer(URL: url!)
-//                    self.playerController.player = self.player
                     self.playVideo(rs["linkphim"]![0])
                     NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(videosViewController.endVideos), name: AVPlayerItemDidPlayToEndTimeNotification, object: self.player.currentItem)
                     NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(videosViewController.eventPlayOrPause), name: AVPlayerItemTimeJumpedNotification, object: self.player.currentItem)

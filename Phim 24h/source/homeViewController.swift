@@ -25,6 +25,9 @@ class homeViewController: masterViewController, UICollectionViewDataSource, UICo
     var dienVien: String = ""
     var namPhatHanh:String = ""
     var noiDungPhim:String = ""
+    var params = ""
+    var pages = 0
+    let threshold:CGFloat = -50
     
     var arrPhimId:[String] = []
     var arrTenPhim:[String] = []
@@ -36,6 +39,9 @@ class homeViewController: masterViewController, UICollectionViewDataSource, UICo
     var clickPhimMoi = false
     var clickPhimLe = false
     var clickPhimBo = false
+    var ktPages = false
+    var isLoadingMore = false
+    var timKiemClick = false
     
     let tap = UITapGestureRecognizer()
     var visua = UIVisualEffectView()
@@ -66,13 +72,16 @@ class homeViewController: masterViewController, UICollectionViewDataSource, UICo
         khoiTaoDoiTuong()
         khoiTaoViTri()
         loadTheLoai()
-        loadData("id=phimmoi")
+        loadData("id=phimmoi&pages=0")
+        params = "id=phimmoi"
         
         if let token = FBSDKAccessToken.currentAccessToken(){
             print(token)
             loadDataFacebook()
         }
+        
     }
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -92,7 +101,7 @@ class homeViewController: masterViewController, UICollectionViewDataSource, UICo
         
         let btnTimKiem = UIButton(type: .Custom)
         btnTimKiem.setImage(UIImage(named: "button_search.png"), forState: .Normal)
-        btnTimKiem.addTarget(self, action: #selector(homeViewController.btnMenuBarNavClick(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        btnTimKiem.addTarget(self, action: #selector(homeViewController.btnTimKiemClick(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         btnTimKiem.frame = CGRectMake(0, 0,18, 18)
         let barTimKiem = UIBarButtonItem(customView: btnTimKiem)
         self.navigationItem.rightBarButtonItem = barTimKiem
@@ -137,8 +146,6 @@ class homeViewController: masterViewController, UICollectionViewDataSource, UICo
         
         viewProfile = UIView(frame: CGRectZero)
         viewProfile.backgroundColor = UIColor(red: 60/255, green: 74/255, blue: 106/255, alpha: 1)
-//        viewProfile.layer.borderWidth = 1
-//        viewProfile.layer.borderColor = UIColor.whiteColor().CGColor
         self.viewSubMenu.addSubview(viewProfile)
         
         imgDaiDien = UIImageView(frame: CGRectZero)
@@ -178,7 +185,6 @@ class homeViewController: masterViewController, UICollectionViewDataSource, UICo
         cltPhim = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
         cltPhim.dataSource = self
         cltPhim.delegate = self
-//        cltPhim.
         cltPhim.layer.shouldRasterize = true
         cltPhim.layer.rasterizationScale = UIScreen.mainScreen().scale
         cltPhim.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
@@ -323,7 +329,6 @@ class homeViewController: masterViewController, UICollectionViewDataSource, UICo
         name.frame.size.width = cell.frame.size.width
         
         let img = cell.contentView.viewWithTag(2) as! UIImageView
-//        img.image = UIImage(named: "logo.png")
         img.contentMode = .ScaleToFill
         img.frame = CGRect(x: 0, y: 0, width: cell.frame.size.width, height: cell.frame.size.height - name.frame.size.height)
         
@@ -343,28 +348,8 @@ class homeViewController: masterViewController, UICollectionViewDataSource, UICo
                 }
             })
             dataTask.resume()
-            
-            
-            
         }
         
-//        
-//        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-//            
-//            let imgURL = "\(self.host)content/images/\(self.arrHinh[indexPath.row])"
-//            let imgData = NSURL(string: imgURL)
-//            let imgContenData = NSData(contentsOfURL: imgData!)
-//            
-//            dispatch_async(dispatch_get_main_queue(), {
-//                if imgContenData != nil{
-//                    let img = cell.contentView.viewWithTag(2) as! UIImageView
-//                    img.contentMode = .ScaleToFill
-//                    img.frame = CGRect(x: 0, y: 0, width: cell.frame.size.width, height: cell.frame.size.height - name.frame.size.height)
-//                    img.image = UIImage(data: imgContenData!)
-//                }
-//            })
-//            
-//        })
         return cell
     }
     func collectionView(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
@@ -383,10 +368,11 @@ class homeViewController: masterViewController, UICollectionViewDataSource, UICo
                 if let imagesData = UIImage(data: data!){
                     print("Image!!!!!!")
                     dispatch_async(dispatch_get_main_queue(), {
-                        
+                        self.timKiemClick = false
                         self.dataHinh = data!
                         print(self.arrHinh[indexPath.row])
                         self.performSegueWithIdentifier("nextViewContent", sender: self)
+                        
                     })
                     print(data!)
                 }
@@ -396,28 +382,7 @@ class homeViewController: masterViewController, UICollectionViewDataSource, UICo
         }
         
         
-//        js.getRequest("id=about&phimid=\(arrPhimId[indexPath.row])") { (results) -> Void in
-//            self.js.pareJson(results, getdata: ["phimid", "hinh", "tenphim", "daodien", "dienvien", "status", "namphathanh", "noidungphim"], complet: { (rs) -> Void in
-//                self.daoDien = rs["daodien"]![0]
-//                self.dienVien = rs["dienvien"]![0]
-//                self.status = rs["status"]![0]
-//                self.namPhatHanh = rs["namphathanh"]![0]
-//                self.Hinh = rs["hinh"]![0]
-//                self.tenPhim = rs["tenphim"]![0]
-//                self.noiDungPhim = rs["noidungphim"]![0]
-//                self.tenPhim = self.tenPhim.uppercaseString
-//                dispatch_async(dispatch_get_main_queue(), {
-//                    self.performSegueWithIdentifier("nextViewContent", sender: self)
-//                })
-//            })
-//        self.performSegueWithIdentifier("nextViewContent", sender: self)
-//        }
     }
-    
-//    - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{
-//    return UIEdgeInsetsMake(top, left, bottom, right);
-//    }
-    
     
 //MARK: -TableView menu
     
@@ -481,12 +446,14 @@ class homeViewController: masterViewController, UICollectionViewDataSource, UICo
         clickPhimLe = false
         clickPhimMoi = false
         clickPhimBo = false
+        ktPages = false
+        loading.hidden = false
         arrPhimId = []
         arrTenPhim = []
         arrHinh = []
         cltPhim.reloadData()
-        self.loading.hidden = false
-        loadData("id=phimtheotheloai&theloaiid=\(arrTheLoaiId[indexPath.row])")
+        params = "id=phimtheotheloai&theloaiid=\(arrTheLoaiId[indexPath.row])"
+        loadData("id=phimtheotheloai&theloaiid=\(arrTheLoaiId[indexPath.row])&pages=0")
         hiddenMenu()
     }
 //MARK: -cac func Facebook
@@ -499,12 +466,14 @@ class homeViewController: masterViewController, UICollectionViewDataSource, UICo
     }
     override func loginButtonDidLogOut(loginButton: FBSDKLoginButton!) {
         print("da thoat")
+        alertThongBao("Thông báo", message: "Bạn vừa đăng xuất tài khoản\nBạn nên đăng nhập để có thể xử dụng đầy đủ các chức năng.")
         common.ktDangNhapFacebook = false
+        common.idFacebook = -1
         imgDaiDien.image = UIImage(named: "anhdaidien.jpg")
         lblName.text = "Đăng nhập"
     }
     func loadDataFacebook(){
-        common.ktDangNhapFacebook = true
+       common.ktDangNhapFacebook = true
         let parameter = ["fields":"id, name, link, email, last_name, picture.type(large)"]
         var parameterToAPI = "id=adduser"
         FBSDKGraphRequest(graphPath: "me", parameters: parameter).startWithCompletionHandler { (connection, rs, error) in
@@ -586,8 +555,9 @@ class homeViewController: masterViewController, UICollectionViewDataSource, UICo
         }
     }
     
-    func timkiem(){
-        
+    func btnTimKiemClick(sender:UIButton){
+        timKiemClick = true
+        self.performSegueWithIdentifier("timkiem", sender: self)
     }
     
     func btnPhimMoiClick(sender:UIButton){
@@ -600,6 +570,7 @@ class homeViewController: masterViewController, UICollectionViewDataSource, UICo
         self.title = "Phim 24h"
         clickPhimLe = false
         clickPhimBo = false
+        ktPages = false
         if !clickPhimMoi{
             arrPhimId = []
             arrTenPhim = []
@@ -607,7 +578,8 @@ class homeViewController: masterViewController, UICollectionViewDataSource, UICo
             cltPhim.reloadData()
             loading.hidden = false
             clickPhimMoi = true
-            loadData("id=phimmoi")
+            params = "id=phimmoi"
+            loadData("id=phimmoi&pages=0")
         }
         
     }
@@ -621,6 +593,7 @@ class homeViewController: masterViewController, UICollectionViewDataSource, UICo
         self.title = "Phim 24h"
         clickPhimBo = false
         clickPhimMoi = false
+        ktPages = false
         if !clickPhimLe{
             print("phimle")
             arrPhimId = []
@@ -628,7 +601,8 @@ class homeViewController: masterViewController, UICollectionViewDataSource, UICo
             arrHinh = []
             cltPhim.reloadData()
             loading.hidden = false
-            loadData("id=phimle")
+            params = "id=phimle"
+            loadData("id=phimle&pages=0")
             clickPhimLe = true
         }
         
@@ -643,6 +617,7 @@ class homeViewController: masterViewController, UICollectionViewDataSource, UICo
         self.title = "Phim 24h"
         clickPhimLe = false
         clickPhimMoi = false
+        ktPages = false
         if !clickPhimBo{
             print("phimbo")
             arrPhimId = []
@@ -650,12 +625,35 @@ class homeViewController: masterViewController, UICollectionViewDataSource, UICo
             arrHinh = []
             cltPhim.reloadData()
             loading.hidden = false
-            loadData("id=phimbo")
+            params = "id=phimbo"
+            loadData("id=phimbo&pages=0")
             clickPhimBo = true
         }
         
     }
 //MARK: -init
+    
+    
+    
+    func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if scrollView == cltPhim{
+            
+            if ((scrollView.contentOffset.y + scrollView.frame.size.height) >= scrollView.contentSize.height)
+            {
+                if !isLoadingMore{
+                    if !ktPages{
+                        pages = 1
+                        ktPages = true
+                    }else{
+                        pages += 1
+                    }
+                    loadData("\(params)&pages=\(pages)")
+                    
+                }
+            }
+        }
+    }
+    
     override func loadData(params:String){
         js.getRequest(params) { (results) -> Void in
             
@@ -663,12 +661,13 @@ class homeViewController: masterViewController, UICollectionViewDataSource, UICo
                 if rs["loi"] != nil{
                     self.loading.hidden = true
                 }else{
-                    self.arrTenPhim = rs["tenphim"]!
-                    self.arrHinh = rs["hinh"]!
-                    self.arrPhimId = rs["phimid"]!
+                    self.arrTenPhim += rs["tenphim"]!
+                    self.arrHinh += rs["hinh"]!
+                    self.arrPhimId += rs["phimid"]!
                     dispatch_async(dispatch_get_main_queue(), {
                         self.cltPhim.reloadData()
                         self.loading.hidden = true
+                        self.isLoadingMore = false
                     })
                 }
                 
@@ -683,23 +682,33 @@ class homeViewController: masterViewController, UICollectionViewDataSource, UICo
                 dispatch_async(dispatch_get_main_queue(), {
                     self.tableMenu.reloadData()
                     self.loading.hidden = true
+                    self.loadXuHuongTimKiem()
                 })
             })
         }
     }
+    
+    func loadXuHuongTimKiem() {
+        js.getRequest("id=xuhuongtimkiem") { (results) in
+            self.js.pareJson(results, getdata: ["tukhoa"], complet: { (rs) in
+                for tukhoa in rs["tukhoa"]!{
+                    print(tukhoa)
+                    self.js.insertData(["tuKhoa":tukhoa], table: "XuHuongTimKiem")
+                }
+                
+            })
+        }
+    }
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        self.loading.hidden = true
-        let indexPatchs = cltPhim.indexPathsForSelectedItems()
-        let indexPatch = indexPatchs![0] as NSIndexPath
-        chuyenThamSo.setValue(dataHinh, forKeyPath: "dataHinh")
-        chuyenThamSo.setValue(arrPhimId[indexPatch.row], forKeyPath: "phimID")
-//        chuyenThamSo.setValue(arrHinh[indexPatch.row], forKey: "hinh")
-//        chuyenThamSo.setValue(arrTenPhim[indexPatch.row], forKey: "tenPhim")
-//        chuyenThamSo.setValue(status, forKey: "status")
-//        chuyenThamSo.setValue(daoDien, forKey: "daodien")
-//        chuyenThamSo.setValue(dienVien, forKey: "dienvien")
-//        chuyenThamSo.setValue(namPhatHanh, forKey: "namphathanh")
-//        chuyenThamSo.setValue(noiDungPhim, forKey: "noidungphim")
+        if !timKiemClick{
+            self.loading.hidden = true
+            let indexPatchs = cltPhim.indexPathsForSelectedItems()
+            let indexPatch = indexPatchs![0] as NSIndexPath
+            chuyenThamSo.setValue(dataHinh, forKeyPath: "dataHinh")
+            chuyenThamSo.setValue(arrPhimId[indexPatch.row], forKeyPath: "phimID")
+        }
+        
     }
     
 }
