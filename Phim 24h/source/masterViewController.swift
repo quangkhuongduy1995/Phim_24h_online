@@ -85,6 +85,23 @@ class masterViewController: UIViewController,FBSDKLoginButtonDelegate {
     }
     
     
+    func alertThongBaoAction(title:String, message:String, action: ()->Void) {
+        let alertViewThongbao = UIAlertController(title: title , message: message, preferredStyle: .Alert)
+        alertViewThongbao.addAction(UIAlertAction(title: "Đóng", style: .Default, handler: { (UIAlerAction) in
+            action()
+        }))
+        self.presentViewController(alertViewThongbao, animated: true, completion: nil)
+    }
+    
+    func alertThongBaoActionCancel(title:String, message:String, action: ()->Void) {
+        let alertViewThongbao = UIAlertController(title: title , message: message, preferredStyle: .Alert)
+        alertViewThongbao.addAction(UIAlertAction(title: "Có", style: .Default, handler: { (UIAlerAction) in
+            action()
+        }))
+        alertViewThongbao.addAction(UIAlertAction(title: "Không", style: .Cancel, handler: nil))
+        self.presentViewController(alertViewThongbao, animated: true, completion: nil)
+    }
+    
     
     //MARK: -Khoá xoay màn hình
     func forcePortrait(){
@@ -121,6 +138,9 @@ extension homeViewController : UINavigationControllerDelegate{
             self.forcePortrait()
         }
         if viewController is timKiemViewController{
+            self.forcePortrait()
+        }
+        if viewController is dangNhapViewController{
             self.forcePortrait()
         }
         if viewController is homeViewController

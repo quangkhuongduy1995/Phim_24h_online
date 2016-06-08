@@ -10,5 +10,13 @@
             </PersistentString>
          </PersistentStrings>
       </ContextState>
+      <ContextState
+         contextName = "dangkyViewController.(insertData(String) -&gt; ()).(closure #1):dangkyViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "results[&quot;data&quot;]!![0].count">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
    </ContextStates>
 </VariablesViewState>

@@ -14,8 +14,11 @@
 		4622D4F31CB96AEB0017096F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4622D4F11CB96AEB0017096F /* LaunchScreen.storyboard */; };
 		4622D4FE1CB96AEB0017096F /* Phim_24hTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4622D4FD1CB96AEB0017096F /* Phim_24hTests.swift */; };
 		4622D5091CB96AEB0017096F /* Phim_24hUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4622D5081CB96AEB0017096F /* Phim_24hUITests.swift */; };
-		46901EBD1CD60AD700AD4925 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46901EBB1CD60AD700AD4925 /* FBSDKCoreKit.framework */; };
-		46901EBE1CD60AD700AD4925 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46901EBC1CD60AD700AD4925 /* FBSDKLoginKit.framework */; };
+		46511A2F1CF9C142004C8C35 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46511A2D1CF9C142004C8C35 /* FBSDKCoreKit.framework */; };
+		46511A301CF9C142004C8C35 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46511A2E1CF9C142004C8C35 /* FBSDKLoginKit.framework */; };
+		4667D62D1CF0C4A000443B3A /* dangkyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4667D62C1CF0C4A000443B3A /* dangkyViewController.swift */; };
+		4689311E1CF1A7A500226A0B /* bg_text.png in Resources */ = {isa = PBXBuildFile; fileRef = 4689311D1CF1A7A500226A0B /* bg_text.png */; };
+		4691087D1CF04B6A00759FAC /* dangNhapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4691087C1CF04B6A00759FAC /* dangNhapViewController.swift */; };
 		46C2FDBA1CBFE06D00493A79 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 46C2FDB91CBFE06D00493A79 /* Images.xcassets */; };
 		46F08F831CB96C8B001BF92F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46F08F7C1CB96C8B001BF92F /* AppDelegate.swift */; };
 		46F08F841CB96C8B001BF92F /* common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46F08F7D1CB96C8B001BF92F /* common.swift */; };
@@ -83,8 +86,11 @@
 		4622D5041CB96AEB0017096F /* Phim 24hUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Phim 24hUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4622D5081CB96AEB0017096F /* Phim_24hUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phim_24hUITests.swift; sourceTree = "<group>"; };
 		4622D50A1CB96AEB0017096F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		46901EBB1CD60AD700AD4925 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = framework/FBSDKCoreKit.framework; sourceTree = "<group>"; };
-		46901EBC1CD60AD700AD4925 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = framework/FBSDKLoginKit.framework; sourceTree = "<group>"; };
+		46511A2D1CF9C142004C8C35 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = framework/FBSDKCoreKit.framework; sourceTree = "<group>"; };
+		46511A2E1CF9C142004C8C35 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = framework/FBSDKLoginKit.framework; sourceTree = "<group>"; };
+		4667D62C1CF0C4A000443B3A /* dangkyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = dangkyViewController.swift; sourceTree = "<group>"; };
+		4689311D1CF1A7A500226A0B /* bg_text.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_text.png; sourceTree = "<group>"; };
+		4691087C1CF04B6A00759FAC /* dangNhapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = dangNhapViewController.swift; sourceTree = "<group>"; };
 		46C2FDB91CBFE06D00493A79 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		46F08F7C1CB96C8B001BF92F /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		46F08F7D1CB96C8B001BF92F /* common.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = common.swift; sourceTree = "<group>"; };
@@ -129,8 +135,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				46901EBE1CD60AD700AD4925 /* FBSDKLoginKit.framework in Frameworks */,
-				46901EBD1CD60AD700AD4925 /* FBSDKCoreKit.framework in Frameworks */,
+				46511A301CF9C142004C8C35 /* FBSDKLoginKit.framework in Frameworks */,
+				46511A2F1CF9C142004C8C35 /* FBSDKCoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -209,8 +215,8 @@
 		468319911CCCB14C005FF6B6 /* framework */ = {
 			isa = PBXGroup;
 			children = (
-				46901EBB1CD60AD700AD4925 /* FBSDKCoreKit.framework */,
-				46901EBC1CD60AD700AD4925 /* FBSDKLoginKit.framework */,
+				46511A2D1CF9C142004C8C35 /* FBSDKCoreKit.framework */,
+				46511A2E1CF9C142004C8C35 /* FBSDKLoginKit.framework */,
 			);
 			name = framework;
 			sourceTree = "<group>";
@@ -227,6 +233,8 @@
 				46F08F7F1CB96C8B001BF92F /* functionJson.swift */,
 				46F08F821CB96C8B001BF92F /* ViewController.swift */,
 				460346F11CD3A66C0017F297 /* timKiemViewController.swift */,
+				4691087C1CF04B6A00759FAC /* dangNhapViewController.swift */,
+				4667D62C1CF0C4A000443B3A /* dangkyViewController.swift */,
 			);
 			path = source;
 			sourceTree = "<group>";
@@ -234,6 +242,7 @@
 		46F08F8D1CB96CAF001BF92F /* image */ = {
 			isa = PBXGroup;
 			children = (
+				4689311D1CF1A7A500226A0B /* bg_text.png */,
 				46F08F8E1CB96CAF001BF92F /* anhdaidien.jpg */,
 				46F08F8F1CB96CAF001BF92F /* bg.png */,
 				46F08F901CB96CAF001BF92F /* bg_btn_notclick.png */,
@@ -395,6 +404,7 @@
 				46F08FB11CB96CAF001BF92F /* button_back.png in Resources */,
 				46F08FB91CB96CAF001BF92F /* divide.png in Resources */,
 				46F08FC31CB96CAF001BF92F /* poster.png in Resources */,
+				4689311E1CF1A7A500226A0B /* bg_text.png in Resources */,
 				46F08FB41CB96CAF001BF92F /* button_sidebar.png in Resources */,
 				46F08FB21CB96CAF001BF92F /* button_search.png in Resources */,
 				46F08FC01CB96CAF001BF92F /* lines.png in Resources */,
@@ -431,9 +441,11 @@
 				460346F21CD3A66C0017F297 /* timKiemViewController.swift in Sources */,
 				46F08F851CB96C8B001BF92F /* contentViewController.swift in Sources */,
 				46F08FCC1CB96D83001BF92F /* videosViewController.swift in Sources */,
+				4667D62D1CF0C4A000443B3A /* dangkyViewController.swift in Sources */,
 				46F08F831CB96C8B001BF92F /* AppDelegate.swift in Sources */,
 				46F08F871CB96C8B001BF92F /* homeViewController.swift in Sources */,
 				4622D4EE1CB96AEB0017096F /* Phim_24h.xcdatamodeld in Sources */,
+				4691087D1CF04B6A00759FAC /* dangNhapViewController.swift in Sources */,
 				46F08F841CB96C8B001BF92F /* common.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -644,14 +656,37 @@
 					24h/framework,
 					"$(PROJECT_DIR)/Phim",
 					24h/framework,
+					"$(PROJECT_DIR)/Phim",
+					24h/framework,
+					"$(PROJECT_DIR)/Phim",
+					24h/framework,
+					"$(PROJECT_DIR)/Phim",
+					24h/framework,
+					"$(PROJECT_DIR)/Phim",
+					24h/framework,
+					"$(PROJECT_DIR)/Phim",
+					24h/framework,
+					"$(PROJECT_DIR)/Phim",
+					24h/framework,
+					"$(PROJECT_DIR)/Phim",
+					24h/framework,
+					"$(PROJECT_DIR)/Phim",
+					24h/framework,
+					"$(PROJECT_DIR)/Phim",
+					24h/framework,
+					"$(PROJECT_DIR)/Phim",
+					24h/framework,
+					"$(PROJECT_DIR)/Phim",
+					24h/framework,
 				);
 				INFOPLIST_FILE = "Phim 24h/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Com.QuangKhuongDuy.Phim24h.Phim-24h";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Phim 24h/Phim 24h-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -727,13 +762,36 @@
 					24h/framework,
 					"$(PROJECT_DIR)/Phim",
 					24h/framework,
+					"$(PROJECT_DIR)/Phim",
+					24h/framework,
+					"$(PROJECT_DIR)/Phim",
+					24h/framework,
+					"$(PROJECT_DIR)/Phim",
+					24h/framework,
+					"$(PROJECT_DIR)/Phim",
+					24h/framework,
+					"$(PROJECT_DIR)/Phim",
+					24h/framework,
+					"$(PROJECT_DIR)/Phim",
+					24h/framework,
+					"$(PROJECT_DIR)/Phim",
+					24h/framework,
+					"$(PROJECT_DIR)/Phim",
+					24h/framework,
+					"$(PROJECT_DIR)/Phim",
+					24h/framework,
+					"$(PROJECT_DIR)/Phim",
+					24h/framework,
+					"$(PROJECT_DIR)/Phim",
+					24h/framework,
 				);
 				INFOPLIST_FILE = "Phim 24h/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Com.QuangKhuongDuy.Phim24h.Phim-24h";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Phim 24h/Phim 24h-Bridging-Header.h";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

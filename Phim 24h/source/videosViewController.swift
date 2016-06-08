@@ -28,7 +28,7 @@ class videosViewController: masterViewController,AVPlayerItemOutputPushDelegate,
     var arrVideosID:[String] = []
     var arrVideos:[String] = []
     var arrTenFacebook:[String] = []
-    var arrIdFacebook:[String] = []
+    var arrId:[String] = []     //arrIdFacebook
     var arrBinhLuan:[String] = []
     var demThoiGianCapNhatLuotXem = 0
     var currentSeconds = 0
@@ -242,7 +242,7 @@ class videosViewController: masterViewController,AVPlayerItemOutputPushDelegate,
         txtVietBinhLuan.layer.cornerRadius = 5
         txtVietBinhLuan.layer.masksToBounds = true
         txtVietBinhLuan.font = UIFont.systemFontOfSize(16)
-        if common.ktDangNhapFacebook{
+        if common.idThanhVien != -1{ //common.idFacebook != -1 ||
             txtVietBinhLuan.text = "Nhập bình luận..."
             txtVietBinhLuan.editable = true
             txtVietBinhLuan.selectable = true
@@ -533,7 +533,7 @@ class videosViewController: masterViewController,AVPlayerItemOutputPushDelegate,
     }
     
     func btnLikeClick(sender:UIButton){
-        if common.ktDangNhapFacebook{
+        if  common.idThanhVien != -1{ //common.idFacebook != -1 ||
             var paramsLike = "id=thich_khongthich&videosid=\(videosid)"
             if !checkLike{
                 like()
@@ -542,7 +542,12 @@ class videosViewController: masterViewController,AVPlayerItemOutputPushDelegate,
                 unlike()
                 paramsLike = "\(paramsLike)&like=unlike"
             }
-            paramsLike = "\(paramsLike)&idfacebook=\(common.idFacebook)"
+//            if common.idFacebook != -1{
+//                paramsLike = "\(paramsLike)&idfacebook=\(common.idFacebook)"
+//            }else{
+                paramsLike = "\(paramsLike)&idthanhvien=\(common.idThanhVien)"
+//            }
+            
             self.js.getRequest(paramsLike, comple: { (results) in
                 self.js.pareJson(results, getdata: ["likes"], complet: { (rs) in
                     dispatch_async(dispatch_get_main_queue(), {
@@ -599,7 +604,7 @@ class videosViewController: masterViewController,AVPlayerItemOutputPushDelegate,
     
     func btnBinhLuanClick(sender:UIButton) {
         let bl = txtVietBinhLuan.text.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!
-        abc("id=binhluan&videosid=\(videosid)&idfacebook=\(common.idFacebook)&guibinhluan=\(bl)")
+        abc("id=binhluan&videosid=\(videosid)&idfacebook=\(common.idThanhVien)&guibinhluan=\(bl)")//common.idFacebook
         txtVietBinhLuan.text = nil
         anBanPhim()
     }
@@ -651,8 +656,8 @@ class videosViewController: masterViewController,AVPlayerItemOutputPushDelegate,
     
     func loadDataUser(videoid:String){
         if common.ktDangNhapFacebook{
-            self.js.getRequest("id=thich_khongthich&videosid=\(videoid)&idfacebook=\(common.idFacebook)&like=getlike", comple: { (results) in
-                //                    print(results.count)
+            self.js.getRequest("id=thich_khongthich&videosid=\(videoid)&idfacebook=\(common.idThanhVien)&like=getlike", comple: { (results) in
+                //                    print(results.count)//common.idFacebook
                 self.js.pareJson(results, getdata: ["likeid"], complet: { (rs) in
                     dispatch_async(dispatch_get_main_queue(), {
                         
@@ -789,7 +794,7 @@ class videosViewController: masterViewController,AVPlayerItemOutputPushDelegate,
             self.menuConmentLikeGoiY.hidden = false
             self.tableGoiY_Tap.hidden = false
             self.viewBinhLuan.hidden = false
-            self.viewVietBinhLuan.hidden = false
+//            self.viewVietBinhLuan.hidden = false
             scrollBinhluan.hidden = false
             self.navigationController?.navigationBarHidden = false
             khoiTaoViTri()
@@ -798,16 +803,16 @@ class videosViewController: masterViewController,AVPlayerItemOutputPushDelegate,
     
     func abc(params: String) {
         js.getRequest(params) { (results) -> Void in
-            self.js.pareJson(results, getdata: ["tenfacebook","loibinhluan","idfacebook", "binhluan"], complet: { (rs) -> Void in
+            self.js.pareJson(results, getdata: ["tenfacebook","loibinhluan","idfacebook", "binhluan","id"], complet: { (rs) -> Void in
                 dispatch_async(dispatch_get_main_queue(), {
                     if rs["tenfacebook"]?.count > 0{
                         self.arrTenFacebook = rs["tenfacebook"]!
-                        self.arrIdFacebook = rs["idfacebook"]!
+                        self.arrId = rs["id"]!
                         self.arrBinhLuan = rs["loibinhluan"]!
                         self.lblSoLuongConment.text = rs["binhluan"]![0] as String
                     }else{
                         self.arrTenFacebook = []
-                        self.arrIdFacebook = []
+                        self.arrId = []
                         self.arrBinhLuan = []
                     }
                     self.LoadBinhLuan()
@@ -824,8 +829,8 @@ class videosViewController: masterViewController,AVPlayerItemOutputPushDelegate,
         let w:CGFloat = self.scrollBinhluan.frame.size.width - 94
         var y:CGFloat = 0
         var h:CGFloat = 0
-        print(arrIdFacebook.count)
-        if arrIdFacebook.count == 0 {
+//        print(arrIdFacebook.count)
+        if arrId.count == 0 {
             let lblThongBao = UILabel()
             lblThongBao.text = "Chưa có bình luận nào...!"
             lblThongBao.font = UIFont.systemFontOfSize(18)
@@ -877,8 +882,8 @@ class videosViewController: masterViewController,AVPlayerItemOutputPushDelegate,
             }
             
             vBinhLuan.frame.size = CGSize(width: lblBinhLuan.frame.size.width + 10, height: lblBinhLuan.frame.size.height + 10)
-            
-            if common.idFacebook == Int(arrIdFacebook[i]) {
+//            common.idFacebook
+            if common.idThanhVien == Int(arrId[i]) {//arrIdFacebook
                 name.text = "Me"
                 name.sizeToFit()
                 name.frame.origin = CGPoint(x: scrollBinhluan.frame.size.width - name.frame.size.width - 5, y: name.frame.origin.y)
@@ -891,7 +896,7 @@ class videosViewController: masterViewController,AVPlayerItemOutputPushDelegate,
         }
         y += 8
         scrollBinhluan.contentSize = CGSize(width: self.view.frame.size.width, height: y)
-        print("facebook: \(common.idFacebook)")
+//        print("facebook: \(common.idFacebook)")
     }
     func load_SoLuong_Likes_Views_BinhLuan(videsid:String){
         js.getRequest("id=soluonglikesviewsbinhluan&videosid=\(videsid)") { (results) -> Void in

@@ -61,7 +61,7 @@ class contentViewController: masterViewController {
         loading.hidden = false
         loadData("id=about&phimid=\(phimid)")
 
-        if let token = FBSDKAccessToken.currentAccessToken(){
+        if FBSDKAccessToken.currentAccessToken() != nil{
             test()
         }
     }

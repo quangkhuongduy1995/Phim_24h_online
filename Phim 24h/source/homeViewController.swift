@@ -15,6 +15,7 @@ class homeViewController: masterViewController, UICollectionViewDataSource, UICo
     let js = json()
     let vContent = contentViewController()
     var chuyenThamSo = NSUserDefaults()
+    var user = NSUserDefaults.standardUserDefaults()
     
     var host = ""
     var dataHinh:NSData = NSData()
@@ -45,7 +46,6 @@ class homeViewController: masterViewController, UICollectionViewDataSource, UICo
     
     let tap = UITapGestureRecognizer()
     var visua = UIVisualEffectView()
-    var btnFacebook = FBSDKLoginButton()
     
     let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
     var cltPhim = UICollectionView!()
@@ -56,11 +56,13 @@ class homeViewController: masterViewController, UICollectionViewDataSource, UICo
     
     var imgDaiDien = UIImageView()
     
-    
+//    var btnFacebook = FBSDKLoginButton()
     var btnPhimMoi = UIButton()
     var btnPhimLe = UIButton()
     var btnPhimBo = UIButton()
     var btnCloseMenu = UIButton()
+    var btnDangNhap = UIButton()
+    
     var lblThongBao = UILabel()
     var lblName = UILabel()
     
@@ -74,12 +76,30 @@ class homeViewController: masterViewController, UICollectionViewDataSource, UICo
         loadTheLoai()
         loadData("id=phimmoi&pages=0")
         params = "id=phimmoi"
-        
-        if let token = FBSDKAccessToken.currentAccessToken(){
-            print(token)
+        if user.objectForKey("idthanhvien") != nil && user.objectForKey("idthanhvien") as! Int != -1 {
+            common.idThanhVien = user.objectForKey("idthanhvien") as! Int
+            if user.objectForKey("username") != nil{
+                common.userName = user.objectForKey("username") as! String
+                lblName.text = common.userName
+                print(user.objectForKey("username") as! String)
+            }
+        }
+        if FBSDKAccessToken.currentAccessToken() != nil{
             loadDataFacebook()
+        }else{
+            print("Chưa đăng nhập")
         }
         
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(true)
+        if common.idThanhVien != -1{ //common.idFacebook != -1 ||
+            self.btnDangNhap.setTitle("Đăng xuất", forState: .Normal)
+            loadDataFacebook()
+        }else{
+            self.btnDangNhap.setTitle("Đăng nhập", forState: .Normal)
+        }
     }
     
 
@@ -106,10 +126,20 @@ class homeViewController: masterViewController, UICollectionViewDataSource, UICo
         let barTimKiem = UIBarButtonItem(customView: btnTimKiem)
         self.navigationItem.rightBarButtonItem = barTimKiem
         
+       
+        
         viewMenu = UIView(frame: CGRectZero)
         viewMenu.backgroundColor = UIColor.clearColor()
         viewMenu.backgroundColor = UIColor(patternImage: UIImage(named: "lines.png")!)
         self.view.addSubview(viewMenu)
+        
+        viewSubMenu = UIView(frame: CGRectZero)
+        viewSubMenu.backgroundColor = UIColor.clearColor()
+        viewSubMenu.backgroundColor = UIColor(patternImage: UIImage(named: "bg_left.png")!)
+        let win = UIApplication.sharedApplication().keyWindow
+        win?.addSubview(viewSubMenu)
+//        view.addSubview(viewSubMenu)
+        viewSubMenu.hidden = true
         
         btnPhimMoi = UIButton(type: .Custom)
         btnPhimMoi.backgroundColor = UIColor(patternImage: UIImage(named: "bg_btnClick.png")!)
@@ -130,13 +160,7 @@ class homeViewController: masterViewController, UICollectionViewDataSource, UICo
         btnPhimBo.setTitleColor(UIColor(red: 31/255, green: 31/255, blue: 32/255, alpha: 50), forState: .Normal)
         btnPhimBo.addTarget(self, action: #selector(homeViewController.btnPhimBoClick(_:)), forControlEvents: .TouchUpInside)
         self.viewMenu.addSubview(btnPhimBo)
-        
-        viewSubMenu = UIView(frame: CGRectZero)
-        viewSubMenu.backgroundColor = UIColor.clearColor()
-        viewSubMenu.backgroundColor = UIColor(patternImage: UIImage(named: "bg_left.png")!)
-        let win = UIApplication.sharedApplication().keyWindow
-        win?.addSubview(viewSubMenu)
-        viewSubMenu.hidden = true
+
         
         btnCloseMenu = UIButton(type: .Custom)
         btnCloseMenu.backgroundColor = UIColor.clearColor()
@@ -162,8 +186,8 @@ class homeViewController: masterViewController, UICollectionViewDataSource, UICo
         lblName.textAlignment = .Center
         self.viewProfile.addSubview(lblName)
         
-        btnFacebook.delegate = self
-        self.viewProfile.addSubview(btnFacebook)
+//        btnFacebook.delegate = self
+//        self.viewSubMenu.addSubview(btnFacebook)
         
         tableMenu = UITableView(frame: CGRectZero, style: .Plain)
         tableMenu.backgroundColor = UIColor.clearColor()
@@ -173,6 +197,13 @@ class homeViewController: masterViewController, UICollectionViewDataSource, UICo
         tableMenu.dataSource = self
         tableMenu.scrollEnabled = false
         self.viewSubMenu.addSubview(tableMenu)
+        
+        btnDangNhap = UIButton(type: .Custom)
+        btnDangNhap.backgroundColor = UIColor(red: 68/255, green: 74/255, blue: 106/255, alpha: 1)
+        btnDangNhap.setTitle("Đăng nhập", forState: .Normal)
+        btnDangNhap.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        btnDangNhap.addTarget(self, action: #selector(homeViewController.btnDangNhapClick(_:)), forControlEvents: .TouchUpInside)
+        self.viewSubMenu.addSubview(btnDangNhap)
         
         visua = UIVisualEffectView(frame: CGRectZero)
         visua.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.05)
@@ -230,7 +261,7 @@ class homeViewController: masterViewController, UICollectionViewDataSource, UICo
         h = 35
         btnPhimBo.frame = CGRect(x: x, y: y, width: w, height: h)
         
-        x = -self.view.frame.size.width/2
+        x = -(self.view.frame.size.width * 0.75)
         y = 0
         w = self.view.frame.size.width * 0.75
         h = self.view.frame.size.height
@@ -260,16 +291,23 @@ class homeViewController: masterViewController, UICollectionViewDataSource, UICo
         h = 30
         lblName.frame = CGRect(x: x, y: y, width: w, height: h)
         
-        y += h + 5
+//        y += h + 5
         x = (self.viewProfile.frame.size.width - imgDaiDien.frame.size.width)/2 - 50 + imgDaiDien.frame.size.width
         
-        btnFacebook.frame = CGRect(x: x, y: y, width: 100, height: 30)
+//        btnFacebook.frame = btnDangNhap.frame
         
         x = 0
         y = 40 + viewProfile.frame.size.height
-        h = self.viewSubMenu.frame.size.height
+        h = self.viewSubMenu.frame.size.height - 20 - viewProfile.frame.size.height - 35
         w = self.viewSubMenu.frame.size.width
         tableMenu.frame = CGRect(x: x, y: y, width: w, height: h)
+        
+        x = 0
+        w = self.viewSubMenu.frame.size.width
+        h = 35
+        y = self.viewSubMenu.frame.size.height - 35
+        print(y)
+        btnDangNhap.frame = CGRect(x: x, y: y, width: w, height: h)
         
         x = self.view.frame.size.width * 0.75
         y = 0
@@ -465,13 +503,18 @@ class homeViewController: masterViewController, UICollectionViewDataSource, UICo
         loadDataFacebook()
     }
     override func loginButtonDidLogOut(loginButton: FBSDKLoginButton!) {
+    }
+    func logout(){
         print("da thoat")
         alertThongBao("Thông báo", message: "Bạn vừa đăng xuất tài khoản\nBạn nên đăng nhập để có thể xử dụng đầy đủ các chức năng.")
         common.ktDangNhapFacebook = false
-        common.idFacebook = -1
+//        common.idFacebook = -1
+        
         imgDaiDien.image = UIImage(named: "anhdaidien.jpg")
         lblName.text = "Đăng nhập"
+
     }
+    
     func loadDataFacebook(){
        common.ktDangNhapFacebook = true
         let parameter = ["fields":"id, name, link, email, last_name, picture.type(large)"]
@@ -488,8 +531,11 @@ class homeViewController: masterViewController, UICollectionViewDataSource, UICo
                 parameterToAPI += "&tenfacebook=\(ten)"
             }
             if let id = rs["id"] as? String{
+//                self.btnFacebook.hidden = false
+//                self.btnDangNhap.hidden = true
+                self.btnDangNhap.setTitle("Đăng xuất", forState: .Normal)
                 print("idfracebook: \(id)")
-                common.idFacebook = Int(id)!
+//                common.idFacebook = Int(id)!
                 parameterToAPI += "&idfacebook=\(id)"
             }
             if let link = rs["link"] as? String{
@@ -508,11 +554,15 @@ class homeViewController: masterViewController, UICollectionViewDataSource, UICo
             }
             self.js.themdulieu(parameterToAPI)
         }
+        if common.idThanhVien != -1{
+            lblName.text = common.userName
+        }
     }
     
 //MARK: -cac funtion button
     func showSubMenu(){
         self.tableMenu.reloadData()
+        cltPhim.hidden = true
         UIView.animateWithDuration(0.25, animations: { () -> Void in
             self.viewSubMenu.frame.origin.x = 0
             self.viewSubMenu.hidden = false
@@ -523,11 +573,21 @@ class homeViewController: masterViewController, UICollectionViewDataSource, UICo
     }
     
     func hiddenMenu(){
-        UIView.animateWithDuration(0.25) { () -> Void in
+        
+//        UIView.animateWithDuration(0.25) { () -> Void in
+//            self.viewSubMenu.hidden = false
+//            self.viewSubMenu.frame.origin.x = -self.view.frame.size.width * 0.75
+//        }
+//        
+        
+        UIView.animateWithDuration(0.25, animations: { 
             self.viewSubMenu.hidden = false
             self.viewSubMenu.frame.origin.x = -self.view.frame.size.width * 0.75
+            }) { (finish:Bool) in
+                self.cltPhim.hidden = false
         }
         showMenu = false
+        
         visua.hidden = true
     }
     
@@ -628,6 +688,25 @@ class homeViewController: masterViewController, UICollectionViewDataSource, UICo
             params = "id=phimbo"
             loadData("id=phimbo&pages=0")
             clickPhimBo = true
+        }
+        
+    }
+    
+    func btnDangNhapClick(sender:UIButton){
+        timKiemClick = true
+        hiddenMenu()
+        if FBSDKAccessToken.currentAccessToken() != nil || common.idThanhVien != -1 {
+            alertThongBaoActionCancel("Đăng xuất", message: "Bạn có chắc muốn đăng xuất tài khoản này không", action: { 
+                let loginManager = FBSDKLoginManager()
+                loginManager.logOut()
+//                common.idFacebook = -1
+                common.idThanhVien = -1
+                self.user.setObject(-1, forKey: "idthanhvien")
+                self.btnDangNhap.setTitle("Đăng nhập", forState: .Normal)
+                self.logout()
+            })
+        }else{
+            self.performSegueWithIdentifier("dangnhap", sender: self)
         }
         
     }
